@@ -1,0 +1,641 @@
+'\" t
+.\"     Title: pdf2djvu
+.\"    Author: Jakub Wilk <jwilk@jwilk.net>
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 2022-08-09
+.\"    Manual: pdf2djvu manual
+.\"    Source: pdf2djvu 0.9.19
+.\"  Language: English
+.\"
+.TH "PDF2DJVU" "1" "2022-08-09" "pdf2djvu 0\&.9\&.19" "pdf2djvu manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+pdf2djvu \- creates DjVu files from PDF files
+.SH "SYNOPSIS"
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR [{\fB\-o\fR\ |\ \fB\-\-output\fR}\ \fIoutput\-djvu\-file\fR] [\fIoption\fR...] \fIpdf\-file\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-i\fR\ |\ \fB\-\-indirect\fR}\ \fIindex\-djvu\-file\fR  [\fIoption\fR...] \fIpdf\-file\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-\-version\fR | \fB\-\-help\fR | \fB\-h\fR}
+.SH "DESCRIPTION"
+.PP
+This program creates a DjVu file from one or more Portable Document Format files\&.
+.SH "OPTIONS"
+.PP
+\fBpdf2djvu\fR
+accepts the following options:
+.SS "Document type, file names"
+.PP
+\fB\-o\fR, \fB\-\-output=\fR\fB\fIoutput\-djvu\-file\fR\fR
+.RS 4
+Generate a bundled multi\-page document\&. Write the file into
+\fIoutput\-djvu\-file\fR
+instead of standard output\&.
+.RE
+.PP
+\fB\-i\fR, \fB\-\-indirect=\fR\fB\fIindex\-djvu\-file\fR\fR
+.RS 4
+Generate an indirect multi\-page document\&. Use
+\fIindex\-djvu\-file\fR
+as the index file name; put the component files into the same directory\&. The directory must exist and be writable\&.
+.RE
+.PP
+\fB\-\-page\-id\-template=\fR\fB\fItemplate\fR\fR
+.RS 4
+Specifies the naming scheme for page identifiers\&. Consult the
+\(lqTEMPLATE LANGUAGE\(rq
+section for the template language description\&.
+.sp
+The default template is
+\(lqp{page:04*}\&.djvu\(rq\&.
+.sp
+For portability reasons, page identifiers:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+must consist only of lowercase ASCII letters, digits,
+_,
++,
+\-
+and dot,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+cannot start with a
++,
+\-
+or a dot,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+cannot contain two consecutive dots,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+must end with the
+\&.djvu
+or the
+\&.djv
+extension\&.
+.RE
+.sp
+.RE
+.PP
+\fB\-\-page\-id\-prefix=\fR\fB\fIprefix\fR\fR
+.RS 4
+Equivalent to
+\(lq\-\-page\-id\-template=\fIprefix\fR{page:04*}\&.djvu\(rq\&.
+.RE
+.PP
+\fB\-\-page\-title\-template=\fR\fB\fItemplate\fR\fR
+.RS 4
+Specifies the template for page titles\&. Consult the
+\(lqTEMPLATE LANGUAGE\(rq
+section for the template language description\&.
+.sp
+The default template is
+\(lq{label}\(rq\&.
+.RE
+.PP
+\fB\-\-no\-page\-titles\fR
+.RS 4
+Don't set page titles\&.
+.RE
+.SS "Resolution, page size"
+.PP
+\fB\-d\fR, \fB\-\-dpi=\fR\fB\fIresolution\fR\fR
+.RS 4
+Specifies the desired resolution to
+\fIresolution\fR
+dots per inch\&. The default is 300 dpi\&. The allowed range is: 72 \(<=
+\fIresolution\fR
+\(<= 6000\&.
+.RE
+.PP
+\fB\-\-media\-box\fR
+.RS 4
+Use
+MediaBox
+to determine page size\&.
+CropBox
+is used by default\&.
+.RE
+.PP
+\fB\-\-page\-size=\fR\fB\fIwidth\fR\fR\fBx\fR\fB\fIheight\fR\fR
+.RS 4
+Specifies the preferred page size to
+\fIwidth\fR
+pixels \(mu
+\fIheight\fR
+pixels\&. The actual page size may be altered in order to respect aspect ratio and DjVu limitations on resolution\&. (This option takes precedence over
+\fB\-d\fR/\fB\-\-dpi\fR\&.)
+.RE
+.PP
+\fB\-\-guess\-dpi\fR
+.RS 4
+Try to guess native resolution by inspecting embedded images\&. Use with care\&.
+.RE
+.SS "Image quality"
+.PP
+\fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB+\fR\fB\fI\&...\fR\fR\fB+\fR\fB\fIn\fR\fR, \fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB,\fR\fB\fI\&...\fR\fR\fB,\fR\fB\fIn\fR\fR
+.RS 4
+Specifies the encoding quality of the IW44 background layer\&. This option is similar to the
+\fB\-slice\fR
+option of
+\fBc44\fR\&. Consult the
+\fBc44\fR(1)
+manual page for details\&. The default is
+72+11+10+10\&.
+.RE
+.PP
+\fB\-\-bg\-subsample=\fR\fB\fIn\fR\fR
+.RS 4
+Specifies the background subsampling ratio\&. The default is 3\&. Valid values are integers between 1 and 12, inclusive\&.
+.RE
+.PP
+\fB\-\-fg\-colors=default\fR
+.RS 4
+Try to preserve all the foreground layer colors\&. This is the default\&.
+.RE
+.PP
+\fB\-\-fg\-colors=web\fR
+.RS 4
+Reduce foreground layer colors to the web palette (216 colors)\&. This option is not recommended\&.
+.RE
+.PP
+\fB\-\-fg\-colors=\fR\fB\fIn\fR\fR
+.RS 4
+Use GraphicsMagick to reduce number of distinct colors in the foreground layer to
+\fIn\fR\&. Valid values are integers between 1 and 4080\&. This option is not recommended\&.
+.RE
+.PP
+\fB\-\-fg\-colors=black\fR
+.RS 4
+Discard any color information from the foreground layer\&.
+.RE
+.PP
+\fB\-\-monochrome\fR
+.RS 4
+Render pages as monochrome bitmaps\&. With this option,
+\fB\-\-bg\-\fR\fB\fI\&...\fR\fR
+and
+\fB\-\-fg\-\fR\fB\fI\&...\fR\fR
+options are not respected\&.
+.RE
+.PP
+\fB\-\-loss\-level=\fR\fB\fIn\fR\fR
+.RS 4
+Specifies the aggressiveness of the lossy compression\&. The default is 0 (lossless)\&. Valid values are integers between 0 and 200, inclusive\&. This option is similar to the
+\fB\-losslevel\fR
+option of
+\fBcjb2\fR; consult the
+\fBcjb2\fR(1)
+manual page for details\&. This option can be used only if the
+\fB\-\-monochrome\fR
+option is also enabled\&.
+.RE
+.PP
+\fB\-\-lossy\fR
+.RS 4
+Synonym for
+\fB\-\-loss\-level=100\fR\&.
+.RE
+.PP
+\fB\-\-anti\-alias\fR
+.RS 4
+Enable font and vector anti\-aliasing\&. This option is not recommended\&.
+.RE
+.SS "Extraction"
+.PP
+\fB\-\-no\-metadata\fR
+.RS 4
+Don't extract the metadata\&.
+.sp
+By default:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+The following entries of the document information dictionary are extracted:
+Title,
+Author,
+Subject,
+Creator,
+Producer,
+CreationDate,
+ModDate\&. Timestamps are formatted according to
+\m[blue]\fBRFC 3999\fR\m[]\&\s-2\u[1]\d\s+2, with date and time components separated by a single space\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+The XMP metadata is extracted (or created) and updated accordingly\&.
+.RE
+.sp
+.if n \{\
+.sp
+.\}
+.RS 4
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBNote\fR
+.ps -1
+.br
+If multiple input documents are specified, only metadata of the first one is taken into account\&.
+.sp .5v
+.RE
+.RE
+.PP
+\fB\-\-verbatim\-metadata\fR
+.RS 4
+Keep the original metadata intact\&.
+.RE
+.PP
+\fB\-\-no\-outline\fR
+.RS 4
+Don't extract the document outline\&.
+.RE
+.PP
+\fB\-\-hyperlinks=border\-avis\fR
+.RS 4
+Make hyperlink borders always visible\&.
+.sp
+By default, a hyperlink border is visible only when the mouse is over the hyperlink\&.
+.RE
+.PP
+\fB\-\-hyperlinks=#\fR\fB\fIRRGGBB\fR\fR
+.RS 4
+Force the specified border color for hyperlinks\&.
+.RE
+.PP
+\fB\-\-no\-hyperlinks\fR, \fB\-\-hyperlinks=none\fR
+.RS 4
+Don't extract hyperlinks\&.
+.RE
+.PP
+\fB\-\-no\-text\fR
+.RS 4
+Don't extract the text\&.
+.RE
+.PP
+\fB\-\-words\fR
+.RS 4
+Extract the text\&. Record the location of every word\&. This is the default\&.
+.RE
+.PP
+\fB\-\-lines\fR
+.RS 4
+Extract the text\&. Record the location of every line, rather that every word\&.
+.RE
+.PP
+\fB\-\-crop\-text\fR
+.RS 4
+Extract no text outside the page boundary\&.
+.RE
+.PP
+\fB\-\-no\-nfkc\fR
+.RS 4
+Do not apply
+\m[blue]\fBNFKC\fR\m[]\&\s-2\u[2]\d\s+2
+normalization on the text, except for characters from the
+\m[blue]\fBAlphabetic Presentation Forms block\fR\m[]\&\s-2\u[3]\d\s+2
+(U+FB00\(enU+FB4F), which are normalized unconditionally\&.
+.sp
+The default is to apply NFKC normalization on all characters\&.
+.RE
+.PP
+\fB\-\-filter\-text=\fR\fB\fIcommand\-line\fR\fR
+.RS 4
+Filter the text through the
+\fIcommand\-line\fR\&. The provided filter must preserve whitespace, control characters and decimal digits\&.
+.sp
+This option implies
+\fB\-\-no\-nfkc\fR\&.
+.RE
+.PP
+\fB\-p\fR, \fB\-\-pages=\fR\fB\fIpage\-range\fR\fR
+.RS 4
+Specifies pages to convert\&.
+\fIpage\-range\fR
+is a comma\-separated list of sub\-ranges\&. Each sub\-range is either a single page (e\&.g\&.\ \&17) or a contiguous range of pages (e\&.g\&.\ \&37\-42)\&. Duplicate page numbers are not allowed\&. Pages are numbered from 1\&.
+.sp
+The default is to convert all pages\&.
+.RE
+.SS "Performance"
+.PP
+\fB\-j\fR, \fB\-\-jobs=\fR\fB\fIn\fR\fR
+.RS 4
+Use
+\fIn\fR
+threads to perform conversion\&. The default is to use one thread\&.
+.RE
+.PP
+\fB\-j0\fR, \fB\-\-jobs=0\fR
+.RS 4
+Determine automatically how many threads to use to perform conversion\&.
+.RE
+.SS "Verbosity, help"
+.PP
+\fB\-v\fR, \fB\-\-verbose\fR
+.RS 4
+Display more informational messages while converting the file\&.
+.RE
+.PP
+\fB\-q\fR, \fB\-\-quiet\fR
+.RS 4
+Don't display informational messages while converting the file\&.
+.RE
+.PP
+\fB\-\-version\fR
+.RS 4
+Output version information and exit\&.
+.RE
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Display help and exit\&.
+.RE
+.SH "ENVIRONMENT"
+.PP
+The following environment variables affects
+\fBpdf2djvu\fR
+on Unix systems:
+.PP
+\fIOMP_\fR\fI\fI*\fR\fR
+.RS 4
+Details of runtime behavior with respect to parallelism can be controlled by several environment variables\&. Please refer to the
+\m[blue]\fBOpenMP API specification\fR\m[]\&\s-2\u[4]\d\s+2
+for details\&.
+.RE
+.PP
+\fITMPDIR\fR
+.RS 4
+\fBpdf2djvu\fR
+makes heavy use of temporary files\&. It will store them in a directory specified by this variable\&. The default is
+/tmp\&.
+.RE
+.SH "TEMPLATE LANGUAGE"
+.SS "Template syntax"
+.PP
+The template language is roughly modeled on the
+\m[blue]\fBPython string formatting syntax\fR\m[]\&\s-2\u[5]\d\s+2\&.
+.PP
+A template is a piece of text which contains
+fields, surrounded by curly braces
+{}\&. Fields are replaced with appropriately formatted values when the template is evaluated\&. Moreover,
+{{
+is replaced with a single
+{
+and
+}}
+is replaced with a single
+}\&.
+.SS "Field syntax"
+.PP
+Each field consists of a variable name, optionally followed by a shift, optionally followed by a format specification\&.
+.PP
+The shift is a signed (i\&.e\&. starting with a
++
+or
+\-
+character) integer\&.
+.PP
+The format specification consists of a colon, followed by a width specification\&.
+.PP
+The width specification is a decimal integer defining the minimum field width\&. If not specified, then the field width will be determined by the content\&. Preceding the width specification with a zero (0) character enables zero\-padding\&.
+.PP
+The width specification is optionally followed by an asterisk (*) character, which increases the minimum field width to the width of the longest possible content of the variable\&.
+.SS "Available variables"
+.PP
+\fIdpage\fR
+.RS 4
+Page number in the DjVu document\&.
+.RE
+.PP
+\fIpage\fR, \fIspage\fR
+.RS 4
+Page number in the PDF document\&.
+.RE
+.PP
+\fIlabel\fR
+.RS 4
+Page label (logical page number) in the PDF document\&.
+.sp
+This variable is available only for page titles\&.
+.RE
+.SH "IMPLEMENTATION DETAILS"
+.SS "Layer separation algorithm"
+.PP
+Unless the
+\fB\-\-monochrome\fR
+option is on, pdf2djvu uses the following naive layer separation algorithm:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+For each page, do the following:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Rasterize the page into a pixmap, in the usual manner\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Rasterize the page into another pixmap, omitting the following page elements:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+text,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+1 bit\-per\-pixel raster images,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+vector elements (except fills of large areas)\&.
+.RE
+.sp
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  3." 4.2
+.\}
+Compare both pixmaps, pixel by pixel:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+If their colors match, classify the pixel as a part of the background layer\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Otherwise, classify the pixel as a part of the foreground layer\&.
+.RE
+.sp
+.RE
+.sp
+.RE
+.sp
+.SH "BUG REPORTS"
+.PP
+If you find a bug in pdf2djvu, please report it at
+\m[blue]\fBthe issue tracker\fR\m[]\&\s-2\u[6]\d\s+2
+or to
+\m[blue]\fBthe mailing list\fR\m[]\&\s-2\u[7]\d\s+2\&.
+.SH "SEE ALSO"
+.PP
+\fBdjvu\fR(1),
+\fBdjvudigital\fR(1),
+\fBcsepdjvu\fR(1)
+.SH "NOTES"
+.IP " 1." 4
+RFC 3999
+.RS 4
+\%https://www.ietf.org/rfc/rfc3339
+.RE
+.IP " 2." 4
+NFKC
+.RS 4
+\%https://unicode.org/reports/tr15/
+.RE
+.IP " 3." 4
+Alphabetic Presentation Forms block
+.RS 4
+\%https://unicode.org/charts/PDF/UFB00.pdf
+.RE
+.IP " 4." 4
+OpenMP API specification
+.RS 4
+\%https://www.openmp.org/specifications/
+.RE
+.IP " 5." 4
+Python string formatting syntax
+.RS 4
+\%https://docs.python.org/2/library/string.html#format-string-syntax
+.RE
+.IP " 6." 4
+the issue tracker
+.RS 4
+\%https://github.com/jwilk/pdf2djvu/issues
+.RE
+.IP " 7." 4
+the mailing list
+.RS 4
+\%https://groups.io/g/pdf2djvu
+.RE

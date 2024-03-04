@@ -1,0 +1,713 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC '-//OASIS//DTD DocBook XML V4.5//EN' 'http://www.docbook.org/xml/4.5/docbookx.dtd'
+[
+    <!ENTITY p 'pdf2djvu'>
+    <!ENTITY version '0.9.19'>
+]>
+
+<refentry lang='ru'>
+
+<refentryinfo>
+    <title>руководство по &p;</title>
+<productname>&p;</productname> <author> <firstname>Jakub</firstname>
+<surname>Wilk</surname> <email>jwilk@jwilk.net</email> </author></refentryinfo>
+
+<refmeta>
+    <refentrytitle>&p;</refentrytitle>
+    <manvolnum>1</manvolnum>
+    <refmiscinfo class='version'>&version;</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+    <refname>&p;</refname>
+    <refpurpose>создаёт DjVu-файлы из PDF-файлов</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+    <cmdsynopsis>
+<command>&p;</command> <arg choice='opt'> <group choice='req'> <arg
+choice='plain'><option>-o</option></arg> <arg
+choice='plain'><option>--output</option></arg> </group> <arg
+choice='plain'><replaceable>результирующий-djvu-файл</replaceable></arg>
+</arg> <arg choice='opt'
+rep='repeat'><replaceable>параметр</replaceable></arg> <arg choice='plain'
+rep='repeat'><replaceable>pdf-файл</replaceable></arg></cmdsynopsis>
+    <cmdsynopsis>
+<command>&p;</command> <arg choice='plain'> <group choice='req'> <arg
+choice='plain'><option>-i</option></arg> <arg
+choice='plain'><option>--indirect</option></arg> </group> <arg
+choice='plain'><replaceable>файл-индекса-djvu</replaceable></arg> </arg>
+<arg choice='opt' rep='repeat'><replaceable>параметр</replaceable></arg>
+<arg choice='plain' rep='repeat'><replaceable>pdf-файл</replaceable></arg></cmdsynopsis>
+    <cmdsynopsis>
+<command>&p;</command> <group choice='req'> <arg
+choice='plain'><option>--version</option></arg> <arg
+choice='plain'><option>--help</option></arg> <arg
+choice='plain'><option>-h</option></arg> </group></cmdsynopsis>
+</refsynopsisdiv>
+
+<refsection>
+    <title>Описание</title>
+    <para>
+        Программа создаёт DjVu-файл из одного или нескольких Portable Document
+Format файлов.
+    </para>
+</refsection>
+
+<refsection>
+    <title>Параметры</title>
+    <para>
+        <command>&p;</command> допускает следующие параметры:
+    </para>
+    <refsection>
+        <title>Тип документа, имена файлов</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-o</option></term>
+            <term><option>--output=<filename><replaceable>результирующий-djvu-файл</replaceable></filename></option></term>
+            <listitem>
+                <para>
+                    Создать объединённый многостраничный документ. Записать файл в
+<filename><replaceable>результирующий-djvu-файл</replaceable></filename>
+вместо стандартного вывода.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-i</option></term>
+            <term><option>--indirect=<filename><replaceable>файл-индекса-djvu</replaceable></filename></option></term>
+            <listitem>
+                <para>
+                    Создать раздельный многостраничный документ. Использовать
+<filename><replaceable>файл-индекса-djvu</replaceable></filename> как имя
+файла индекса; поместить файлы-компоненты в один и тот же каталог. Каталог
+должен существовать и иметь разрешение на запись.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-id-template=<replaceable>шаблон</replaceable></option></term>
+            <listitem>
+                <para>
+                    Устанавливает схему именования идентификаторов страниц. Обратитесь за
+справкой к <quote><link linkend='template-language'
+endterm='template-language.title'/></quote> секции описания языка шаблонов.
+                </para>
+                <para>
+                    Шаблон по умолчанию <quote><literal>p{page:04*}.djvu</literal></quote>.
+                </para>
+                <para>
+                    По причине портабельности идентификатор страницы:
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                должен состоять только из строчных ASCII букв, цифр, <literal>_</literal>,
+<literal>+</literal>, <literal>-</literal> и точки,
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                не может начинаться с <literal>+</literal>, <literal>-</literal> или точки,
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                не может включать две последовательные точки,
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                должен заканчиваться расширением <literal>.djvu</literal> или
+<literal>.djv</literal>.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-id-prefix=<replaceable>префикс</replaceable></option></term>
+            <listitem>
+                <para>
+                    Эквивалентно
+<quote><literal>--page-id-template=<replaceable>префикс</replaceable>{page:04*}.djvu</literal></quote>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-title-template=<replaceable>шаблон</replaceable></option></term>
+            <listitem>
+                <para>
+                    Устанавливает шаблон заголовков страниц. Обратитесь за справкой к секции
+описания языка шаблонов <quote><link linkend='template-language'
+endterm='template-language.title'/></quote>.
+                </para>
+                <para>
+                    Шаблон по умолчанию <quote><literal>{label}</literal></quote>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-page-titles</option></term>
+            <listitem>
+                <para>
+                    Не устанавливать заголовки страницы.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Разрешение, размер страницы</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-d</option></term>
+            <term><option>--dpi=<replaceable>разрешение</replaceable></option></term>
+            <listitem>
+                <para>
+                    Устанавливает желаемое разрешение <replaceable>разрешение</replaceable>
+точек на дюйм. По умолчанию 300 dpi. Разрешённый диапазон: 72 ≤
+<replaceable>разрешение</replaceable> ≤ 6000.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--media-box</option></term>
+            <listitem>
+                <para>
+                    Использовать <firstterm>MediaBox</firstterm> для определения размера
+страницы. По умолчанию используется <firstterm>CropBox</firstterm>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-size=<replaceable>ширина</replaceable>x<replaceable>высота</replaceable></option></term>
+            <listitem>
+                <para>
+                    Устанавливает предпочитаемый размер страницы в
+<replaceable>ширина</replaceable> пикселов ×
+<replaceable>высота</replaceable> пикселов. Действительный размер страницы
+может изменяться для соблюдения соотношения и из-за ограничений DjVu. (Этот
+параметр имеет приоритет над <option>-d</option>/<option>--dpi</option>.)
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--guess-dpi</option></term>
+            <listitem>
+                <para>
+                    Попробовать предположить оригинальное разрешение проверяя внедрённые
+изображения. Используйте с осторожностью.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Качество изображения</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>--bg-slices=<replaceable>n</replaceable>+<replaceable>…</replaceable>+<replaceable>n</replaceable></option></term>
+            <term><option>--bg-slices=<replaceable>n</replaceable>,<replaceable>…</replaceable>,<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Устанавливает качество кодирования фонового слоя IW44. Этот параметр похож
+на параметр <option>-slice</option> для <command>c44</command>. Обратитесь
+за справкой к man-странице <citerefentry> <refentrytitle>c44</refentrytitle>
+<manvolnum>1</manvolnum> </citerefentry>. По умолчанию
+<literal>72+11+10+10</literal>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--bg-subsample=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Устанавливает отношение подвыборки фона. По умолчанию 3. Допустимые значения
+находятся между 1 и 12 включительно.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=default</option></term>
+            <listitem>
+                <para>
+                    Попробовать сохранить все цвета переднего плана. Используется по умолчанию.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=web</option></term>
+            <listitem>
+                <para>
+                    Уменьшить количество цветов переднего плана до web-палитры (216 цветов). Не
+рекомендуется использовать.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Использует GraphicsMagick для уменьшения количества явных цветов в слое
+переднего плана. Допустимые значения от 1 до 4080. Не рекомендуется
+использовать.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=black</option></term>
+            <listitem>
+                <para>
+                    Не использовать любую информацию о цветах из слоя переднего плана.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--monochrome</option></term>
+            <listitem>
+                <para>
+                    Рендерить страницы как монохромные изображения. С этим параметром опции
+<option>--bg-<replaceable>…</replaceable></option> и
+<option>--fg-<replaceable>…</replaceable></option> не принимаются во
+внимание.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--loss-level=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    <!-- https://github.com/jwilk/pdf2djvu/issues/86 -->
+Устанавливает агрессивность компрессии с потерями. По умолчанию 0 (без
+потерь). Допустимые значения от 0 до 200 включительно. Этот параметр похож
+на параметр <option>-losslevel</option> для
+<command>cjb2</command>. Обратитесь за справкой к man-странице
+<citerefentry> <refentrytitle>cjb2</refentrytitle> <manvolnum>1</manvolnum>
+</citerefentry>. Этот параметр принимается во внимание только вместе с
+параметром <option>--monochrome</option>.
+                    
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--lossy</option></term>
+            <listitem>
+                <para>
+                    Равносильно <option>--loss-level=100</option>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--anti-alias</option></term>
+            <listitem>
+                <para>
+                    Разрешить сглаживание шрифтов и векторной графики. Не рекомендуется
+использовать.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Извлечение</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>--no-metadata</option></term>
+            <listitem>
+                <para>
+                    Не извлекать метаданные.
+                </para>
+                <para>
+                    По умолчанию:
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                Извлекаются следующие значения информации документа:
+<literal>Title</literal>, <literal>Author</literal>,
+<literal>Subject</literal>, <literal>Creator</literal>,
+<literal>Producer</literal>, <literal>CreationDate</literal>,
+<literal>ModDate</literal>. Временные отметки форматируются согласно
+стандарту <ulink url='https://www.ietf.org/rfc/rfc3339'>RFC
+3999</ulink>. Дата и время разделены одиночным пробелом.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Соответственно извлекаются (или создаются) и обновляются метаданные XMP.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <note>
+                    <para>
+                        В случае нескольких входных документов используются только метаданные из
+первого.
+                    </para>
+                </note>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--verbatim-metadata</option></term>
+            <listitem>
+                <para>
+                    Сохранять метаданные нетронутыми.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-outline</option></term>
+            <listitem>
+                <para>
+                    Не извлекать оглавление документа.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--hyperlinks=border-avis</option></term>
+            <listitem>
+                <para>
+                    Делать границы ссылок всегда видимыми.
+                </para>
+                <para>
+                    По умолчанию границы ссылок становятся видимыми только при наведении на
+ссылку мыши.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--hyperlinks=#<replaceable>RRGGBB</replaceable></option></term>
+            <listitem>
+                <para>
+                    Принудительно использовать заданный цвет для границы ссылок.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-hyperlinks</option></term>
+            <term><option>--hyperlinks=none</option></term>
+            <listitem>
+                <para>
+                    Не извлекать ссылки.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-text</option></term>
+            <listitem>
+                <para>
+                    Не извлекать текст.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry><term>
+            <option>--words</option></term>
+            <listitem>
+                <para>
+                    Извлечь текст. Записать расположение каждого слова. Используется по
+умолчанию.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--lines</option></term>
+            <listitem>
+                <para>
+                    Извлечь текст. Записать расположение каждой строки, а не слова.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--crop-text</option></term>
+            <listitem>
+                <para>
+                    Не извлекать текст, который находится за пределами страницы.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-nfkc</option></term>
+            <listitem>
+                <para>
+                    Не применять <ulink url='https://unicode.org/reports/tr15/'>NFKC</ulink>
+нормализацию к тексту за исключением символов из <ulink
+url='https://unicode.org/charts/PDF/UFB00.pdf'>Alphabetic Presentation Forms
+block</ulink> (U+FB00–U+FB4F), которые нормализованы безоговорочно.
+                </para>
+                <para>
+                    По умолчанию применяется NFKC нормализация для всех символов.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--filter-text=<replaceable>командная строка</replaceable></option></term>
+            <listitem>
+                <para>
+                    Фильтровать текст через <replaceable>командная строка</replaceable>. Данный
+фильтр должен сохранить пробелы, управляющие символы и десятичные цифры.
+                </para>
+                <para>
+                    Этот параметр подразумевает <option>--no-nfkc</option>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-p</option></term>
+            <term><option>--pages=<replaceable>диапазон-страниц</replaceable></option></term>
+            <listitem>
+                <para>
+                    Устанавливает страницы для
+конвертирования. <replaceable>диапазон-страниц</replaceable> — это
+разделяемый запятыми список поддиапазонов. Каждый поддиапазон является
+одиночной страницей (например, <literal>17</literal>) или последовательным
+диапазоном страниц (например, <literal>37-42</literal>). Повторяющиеся
+номера страниц не допускаются. Страницы нумеруются с 1.
+                </para>
+                <para>
+                    По умолчанию конвертируются все страницы.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Производительность</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-j</option></term>
+            <term><option>--jobs=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Использовать <replaceable>n</replaceable> потоков для конвертации. По
+умолчанию используется один поток.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-j0</option></term>
+            <term><option>--jobs=0</option></term>
+            <listitem>
+                <para>
+                    Определить автоматически, сколько потоков использовать для конвертации.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Подробности, справка</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-v</option></term>
+            <term><option>--verbose</option></term>
+            <listitem>
+                <para>
+                    Показывать больше информационных сообщений при конвертации файла.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-q</option></term>
+            <term><option>--quiet</option></term>
+            <listitem>
+                <para>
+                    Не показывать информационные сообщения при конвертации файла.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--version</option></term>
+            <listitem>
+                <para>Вывести информацию о версии и выйти.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-h</option></term>
+            <term><option>--help</option></term>
+            <listitem>
+                <para>Показать справку и выйти.</para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Окружение</title>
+    <para>
+        Следующие переменные окружения оказывают влияние на <command>&p;</command>
+в Unix-системах: <variablelist>
+        <varlistentry>
+            <term><varname>OMP_<replaceable>*</replaceable></varname></term>
+            <listitem>
+            <para>
+                Поведением, с точки зрения распараллеливания, можно управлять с помощью
+нескольких переменных окружения. За деталями обратитесь к <ulink
+url='https://www.openmp.org/specifications/'>спецификации OpenMP
+API</ulink>.
+            </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><varname>TMPDIR</varname></term>
+            
+            <!-- As per IEEE Std 1003.1, 2004 Edition, “8.3 Other Environment Variables”:
+            https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html#tag_08_03
+            -->
+<listitem>
+                <para>
+                    <command>&p;</command> интенсивно использует временные файлы. Программа
+сохраняет их в каталоге заданном этой переменной. По умолчанию
+<filename>/tmp</filename>.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </para>
+</refsection>
+
+<refsection id='template-language'>
+    <title id='template-language.title'>Язык шаблонов</title>
+    <refsection>
+        <title>Синтаксис шаблонов</title>
+        <para>
+            Язык шаблонов использует как образец <ulink
+url='https://docs.python.org/2/library/string.html#format-string-syntax'>синтаксис
+форматирования строк в Python</ulink>.
+        </para>
+        <para>
+            Шаблон — это текст, который содержит <firstterm>поля</firstterm>, окружённые
+фигурными скобками <literal>{</literal><literal>}</literal>. Когда шаблон
+применяется, поля заменяются соответствующим образом отформатированными
+значениями. Кроме того, <literal>{{</literal> и <literal>}}</literal>
+заменяются одиночными <literal>{</literal> и <literal>}</literal>
+соответственно.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Синтаксис полей</title>
+        <para>
+            Каждое поле состоит из имени переменной, за которым может следовать сдвиг
+(не обязательно) и спецификация формата (не обязательно).
+        </para>
+        <para>
+            Сдвиг — целое число со знаком (т. е. начинающееся на <literal>+</literal> or
+<literal>-</literal>).
+        </para>
+        <para>
+            Формат спецификации включает двоеточие, а затем спецификатор ширины поля.
+        </para>
+        <para>
+            Спецификатор ширины поля — это целое десятичное число определяющее
+минимальную ширину поля. Если не указано, тогда ширина поля вычисляется по
+содержимому. Предшествующий спецификатору знак нуля (<literal>0</literal>)
+делает возможным заполнение нулями.
+        </para>
+        <para>
+            После спецификатора ширины поля может располагаться знак звёздочки
+(<literal>*</literal>), что увеличивает минимальную ширину поля до
+максимально возможной длины переменной.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Доступные переменные</title>
+        <variablelist>
+            <varlistentry>
+                <term><varname>dpage</varname></term>
+                <listitem>
+                    <para>Количество страниц в документе DjVu.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><varname>page</varname></term>
+                <term><varname>spage</varname></term>
+                <listitem>
+                    <para>Количество страниц в документе PDF.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><varname>label</varname></term>
+                <listitem>
+                    <para>Метка страницы (логический номер страницы) в документе PDF.</para>
+                    <para>Эта переменная доступна только для заголовков страницы.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Детали реализации</title>
+    <refsection>
+        <title>Алгоритм разделения слоёв</title>
+        <para>
+            Если не используется параметр <option>--monochrome</option>, &p; использует
+следующий простой алгоритм: <orderedlist>
+                <listitem>
+                    <para>
+                        Для каждой страницы сделать следующее: <orderedlist>
+                            <listitem>
+                                <para>
+                                    Преобразовать страницу в растровое изображение обычным порядком.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Преобразовать страницу в другое растровое изображение пропуская следующие
+элементы страницы:
+                                    <itemizedlist>
+                                        <listitem><para>текст,</para></listitem>
+                                        <listitem><para>растровые изображения с глубиной 1 бит на пиксел,</para></listitem>
+                                        <listitem><para>векторные элементы (за исключением больших заполненных площадей).</para></listitem>
+                                    </itemizedlist>
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Сравнить оба изображения, пиксел за пикселом: <orderedlist>
+                                        <listitem>
+                                            <para>
+                                                Если их цвета совпадают, классифицировать пиксел как часть фонового слоя.
+                                            </para>
+                                        </listitem>
+                                        <listitem>
+                                            <para>
+                                                В противоположном случае классифицировать пиксел как часть слоя переднего
+плана.
+                                            </para>
+                                        </listitem>
+                                    </orderedlist>
+                                </para>
+                            </listitem>
+                        </orderedlist>
+                    </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Сообщения об ошибках</title>
+    <para>
+        Если вы нашли ошибку в &p;, сообщите о ней в <ulink
+url='https://github.com/jwilk/pdf2djvu/issues'>баг-трекер</ulink> или в
+<ulink url='https://groups.io/g/pdf2djvu'>список рассылки</ulink>.
+    </para>
+</refsection>
+
+<refsection>
+    <title>Смотрите также</title>
+    <para>
+        <citerefentry> <refentrytitle>djvu</refentrytitle> <manvolnum>1</manvolnum>
+</citerefentry>, <citerefentry> <refentrytitle>djvudigital</refentrytitle>
+<manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+<refentrytitle>csepdjvu</refentrytitle> <manvolnum>1</manvolnum>
+</citerefentry>
+    </para>
+</refsection>
+
+</refentry>
+
+
+<!-- vim:set ts=4 sts=4 sw=4 tw=120 et: -->

@@ -1,0 +1,721 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC '-//OASIS//DTD DocBook XML V4.5//EN' 'http://www.docbook.org/xml/4.5/docbookx.dtd'
+[
+    <!ENTITY p 'pdf2djvu'>
+    <!ENTITY version '0.9.19'>
+]>
+
+<refentry lang='pt'>
+
+<refentryinfo>
+    <title>Manual do &p;</title>
+<productname>&p;</productname> <author> <firstname>Jakub</firstname>
+<surname>Wilk</surname> <email>jwilk@jwilk.net</email> </author></refentryinfo>
+
+<refmeta>
+    <refentrytitle>&p;</refentrytitle>
+    <manvolnum>1</manvolnum>
+    <refmiscinfo class='version'>&version;</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+    <refname>&p;</refname>
+    <refpurpose>cria ficheiros DjVu a partir de ficheiros PDF</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+    <cmdsynopsis>
+<command>&p;</command> <arg choice='opt'> <group choice='req'> <arg
+choice='plain'><option>-o</option></arg> <arg
+choice='plain'><option>--output</option></arg> </group> <arg
+choice='plain'><replaceable>ficheiro-djvu-resultante</replaceable></arg>
+</arg> <arg choice='opt' rep='repeat'><replaceable>opção</replaceable></arg>
+<arg choice='plain'
+rep='repeat'><replaceable>ficheiro-pdf</replaceable></arg></cmdsynopsis>
+    <cmdsynopsis>
+<command>&p;</command> <arg choice='plain'> <group choice='req'> <arg
+choice='plain'><option>-i</option></arg> <arg
+choice='plain'><option>--indirect</option></arg> </group> <arg
+choice='plain'><replaceable>ficheiro-djvu-índice</replaceable></arg> </arg>
+<arg choice='opt' rep='repeat'><replaceable>opção</replaceable></arg> <arg
+choice='plain' rep='repeat'><replaceable>ficheiro-pdf</replaceable></arg></cmdsynopsis>
+    <cmdsynopsis>
+<command>&p;</command> <group choice='req'> <arg
+choice='plain'><option>--version</option></arg> <arg
+choice='plain'><option>--help</option></arg> <arg
+choice='plain'><option>-h</option></arg> </group></cmdsynopsis>
+</refsynopsisdiv>
+
+<refsection>
+    <title>Descrição</title>
+    <para>
+        Este programa cria um ficheiro DjVu a partir de um ou mais ficheiros
+Portable Document Format.
+    </para>
+</refsection>
+
+<refsection>
+    <title>Opções</title>
+    <para>
+        <command>&p;</command> aceita as seguintes opções:
+    </para>
+    <refsection>
+        <title>Tipo de documento, nome de ficheiros</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-o</option></term>
+            <term><option>--output=<filename><replaceable>ficheiro-djvu-resultante</replaceable></filename></option></term>
+            <listitem>
+                <para>
+                    Gera um documento agrupado de várias páginas. Escreve o ficheiro em
+<filename><replaceable>ficheiro-djvu-resultante</replaceable></filename> em
+vez de o fazer na saída standard.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-i</option></term>
+            <term><option>--indirect=<filename><replaceable>ficheiro-djvu-índice</replaceable></filename></option></term>
+            <listitem>
+                <para>
+                    Gera um documento de várias páginas indirecto. Use
+<filename><replaceable>ficheiro-djvu-índice</replaceable></filename> como o
+nome do ficheiro do índice; ponha os ficheiros dos componentes no mesmo
+directório. O directório tem de existir e ser passível de escrita.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-id-template=<replaceable>modelo</replaceable></option></term>
+            <listitem>
+                <para>
+                    Especifica o esquema de nomeação para os identificadores das
+páginas. Consulte a secção <quote><link linkend='template-language'
+endterm='template-language.title'/></quote> para a descrição da linguagem do
+modelo.
+                </para>
+                <para>
+                    O modelo predefinido é <quote><literal>p{page:04*}.djvu</literal></quote>.
+                </para>
+                <para>
+                    Por razões de portabilidade, os identificadores de páginas:
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                devem consistir apenas de letras ASCII minúsculas, dígitos,
+<literal>_</literal>, <literal>+</literal>, <literal>-</literal> e ponto,
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                não podem começar com um <literal>+</literal>, <literal>-</literal> ou um
+ponto,
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                não podem conter dois pontos consecutivos.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                têm de terminar com a extensão <literal>.djvu</literal> ou
+<literal>.djv</literal>.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-id-prefix=<replaceable>prefixo</replaceable></option></term>
+            <listitem>
+                <para>
+                    Equivalente a
+<quote><literal>--page-id-template=<replaceable>prefixo</replaceable>{page:04*}.djvu</literal></quote>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-title-template=<replaceable>modelo</replaceable></option></term>
+            <listitem>
+                <para>
+                    Especifica o modelo para os títulos das páginas. Consulte a secção
+<quote><link linkend='template-language'
+endterm='template-language.title'/></quote> para a descrição da linguagem do
+modelo.
+                </para>
+                <para>
+                    O modelo predefinido é <quote><literal>{label}</literal></quote>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-page-titles</option></term>
+            <listitem>
+                <para>
+                    Não define títulos das páginas.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Resolução, tamanho da página</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-d</option></term>
+            <term><option>--dpi=<replaceable>resolução</replaceable></option></term>
+            <listitem>
+                <para>
+                    Especifica a resolução desejada para <replaceable>resolução</replaceable> em
+pontos por polegada. A predefinição é 300 dpi. Os limites permitidos são 72
+≤ <replaceable>resolução</replaceable> ≤ 6000.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--media-box</option></term>
+            <listitem>
+                <para>
+                    Use <firstterm>MediaBox</firstterm> para determinar o tamanho da página. Por
+predefinição é usado <firstterm>CropBox</firstterm>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-size=<replaceable>largura</replaceable>x<replaceable>altura</replaceable></option></term>
+            <listitem>
+                <para>
+                    Especifica o tamanho de página preferido para
+<replaceable>largura</replaceable> pixeis ×
+<replaceable>altura</replaceable> pixeis. O tamanho de pagina real pode ser
+alterado de modo a respeitar o rácio de aspecto e as limitações do DjVu em
+resolução. (Esta opção toma precedência sobre
+<option>-d</option>/<option>--dpi</option>.)
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--guess-dpi</option></term>
+            <listitem>
+                <para>
+                    Tenta adivinhar a resolução nativa ao inspeccionar as imagens embebidas. Use
+com cuidado.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Qualidade de imagem</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>--bg-slices=<replaceable>n</replaceable>+<replaceable>…</replaceable>+<replaceable>n</replaceable></option></term>
+            <term><option>--bg-slices=<replaceable>n</replaceable>,<replaceable>…</replaceable>,<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Especifica a qualidade de codificação da camada de fundo IW44. Esta opção é
+semelhante à opção <option>-slice</option> do
+<command>c44</command>. Consulte o manual do <citerefentry>
+<refentrytitle>c44</refentrytitle> <manvolnum>1</manvolnum> </citerefentry>
+para detalhes. A predefinição é <literal>72+11+10+10</literal>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--bg-subsample=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Especifica o rácio de sub-amostragem do fundo. A predefinição é 3. Os
+valores válidos são números inteiros entre 1 e 12, inclusive.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=default</option></term>
+            <listitem>
+                <para>
+                    Tenta preservar todas as cores da camada de fundo. Isto é a predefinição.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=web</option></term>
+            <listitem>
+                <para>
+                    Reduz as cores da camada de fundo para a palete web (256 cores). Esta opção
+não é recomendada.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Usa o GraphicsMagick para reduzir o número de cores distintas na camada do
+primeiro plano para <replaceable>n</replaceable>. Os valores válidos são
+números inteiros entre 1 e 4080. Esta opção não é recomendada.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=black</option></term>
+            <listitem>
+                <para>
+                    Descarta qualquer informação de cores da camada do primeiro plano.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--monochrome</option></term>
+            <listitem>
+                <para>
+                    Renderiza as páginas como mapas de bits monocromáticos. Com esta opção, as
+opções <option>--bg-<replaceable>…</replaceable></option> e
+<option>--fg-<replaceable>…</replaceable></option> não são respeitadas.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--loss-level=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    <!-- https://github.com/jwilk/pdf2djvu/issues/86 -->
+Especifica a agressividade da compressão com perdas. A predefinição é 0 (sem
+perdas) Os valores válidos são números inteiros entre 0 e 200,
+inclusive. Esta opção é semelhante à opção <option>-losslevel</option> do
+<command>cjb2</command>; consulte o manual do <citerefentry>
+<refentrytitle>cjb2</refentrytitle> <manvolnum>1</manvolnum> </citerefentry>
+para detalhes. Esta opção pode ser usada apenas se a opção
+<option>--monochrome</option> estiver também activa.
+                    
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--lossy</option></term>
+            <listitem>
+                <para>
+                    Sinónimo para <option>--loss-level=100</option>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--anti-alias</option></term>
+            <listitem>
+                <para>
+                    Activa o anti-aliasing das font e vectores. Esta opção não é recomendada.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Extracção</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>--no-metadata</option></term>
+            <listitem>
+                <para>
+                    Não extrai os meta-dados.
+                </para>
+                <para>
+                    Por predefinição:
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                As seguintes entradas do dicionário de informação do documento são
+extraídas: <literal>Título</literal>, <literal>Autor</literal>,
+<literal>Assunto</literal>, <literal>Criador</literal>,
+<literal>Produtor</literal>, <literal>Data de Criação</literal>,
+<literal>Data de Modificação</literal>.  As amostras de tempo são formatadas
+em conformidade com <ulink url='https://www.ietf.org/rfc/rfc3339'>RFC
+3999</ulink>, com os componentes de data e a hora separados por um único
+espaço.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Os meta-dados XMP são extraídos (ou criados) e actualizados em conformidade.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <note>
+                    <para>
+                        Se forem especificados múltiplos documentos, apenas os meta-dados do
+primeiro é tomado em conta.
+                    </para>
+                </note>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--verbatim-metadata</option></term>
+            <listitem>
+                <para>
+                    Mantêm os meta-dados originais intactos.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-outline</option></term>
+            <listitem>
+                <para>
+                    Não extrai os contornos do documento.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--hyperlinks=border-avis</option></term>
+            <listitem>
+                <para>
+                    Torna os limites das hiperligações sempre visíveis
+                </para>
+                <para>
+                    Por predefinição, os limites das hiperligações são visíveis apenas quando o
+rato está sobre a hiperligação.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--hyperlinks=#<replaceable>RRGGBB</replaceable></option></term>
+            <listitem>
+                <para>
+                    Força a cor especificada para os limites das hiperligações.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-hyperlinks</option></term>
+            <term><option>--hyperlinks=none</option></term>
+            <listitem>
+                <para>
+                    Não extrai as hiperligações
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-text</option></term>
+            <listitem>
+                <para>
+                    Não extrai o texto.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry><term>
+            <option>--words</option></term>
+            <listitem>
+                <para>
+                    Extrai o texto. Recorda a localização de cada palavra. Isto é a
+predefinição.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--lines</option></term>
+            <listitem>
+                <para>
+                    Extrai o texto. Recorda a localização de cada linha, em vez de cada palavra.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--crop-text</option></term>
+            <listitem>
+                <para>
+                    Não extrai nenhum texto fora dos limites da página.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-nfkc</option></term>
+            <listitem>
+                <para>
+                    Não aplica a normalização <ulink
+url='https://unicode.org/reports/tr15/'>NFKC</ulink> no texto, excepto para
+caracteres de <ulink
+url='https://unicode.org/charts/PDF/UFB00.pdf'>Alphabetic Presentation Forms
+block</ulink> (U+FB00–U+FB4F), os quais são normalizados incondicionalmente.
+                </para>
+                <para>
+                    A predefinição é aplicar a normalização NFKC a todos os caracteres.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--filter-text=<replaceable>linha-de-comandos</replaceable></option></term>
+            <listitem>
+                <para>
+                    Filtra o texto através da <replaceable>linha de comandos</replaceable>. O
+filtro fornecido tem de preservar os espaços em branco, caracteres de
+controle e dígitos decimais.
+                </para>
+                <para>
+                    Esta opção implica <option>--no-nfkc</option>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-p</option></term>
+            <term><option>--pages=<replaceable>alcance-de-páginas</replaceable></option></term>
+            <listitem>
+                <para>
+                    Especifica as páginas a
+converter. <replaceable>alcance-de-páginas</replaceable> é uma lista de
+sub-alcances separados por vírgulas. Cada sub-alcance é ou uma página única
+(ex. <literal>17</literal>) ou uma sequência continua de páginas
+(ex. <literal>37-42</literal>). Não é permitido números de página
+duplicados. As páginas são numeradas a partir de número 1.
+                </para>
+                <para>
+                    A predefinição é converter todas as páginas.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Performance</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-j</option></term>
+            <term><option>--jobs=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Usa <replaceable>n</replaceable> linhas de execução (threads) para fazer a
+conversão. A predefinição é usar uma linha de execução.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-j0</option></term>
+            <term><option>--jobs=0</option></term>
+            <listitem>
+                <para>
+                    Determina automaticamente quantas linhas de execução usar para fazer a
+conversão.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Informação detalhada, ajuda</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-v</option></term>
+            <term><option>--verbose</option></term>
+            <listitem>
+                <para>
+                    Mostra mais mensagens informativas enquanto converte o ficheiro.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-q</option></term>
+            <term><option>--quiet</option></term>
+            <listitem>
+                <para>
+                    Não mostra mensagens informativas enquanto converte o ficheiro.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--version</option></term>
+            <listitem>
+                <para>Mostra informação de versão e termina.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-h</option></term>
+            <term><option>--help</option></term>
+            <listitem>
+                <para>Mostra a ajuda e termina.</para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Ambiente</title>
+    <para>
+        As seguintes variáveis de ambiente afectam o <command>&p;</command> em
+sistemas UNIX: <variablelist>
+        <varlistentry>
+            <term><varname>OMP_<replaceable>*</replaceable></varname></term>
+            <listitem>
+            <para>
+                Detalhes no comportamento em tempo de execução com respeito a paralelismo
+podem ser controlados por várias variáveis de ambiente. Por favor use a
+<ulink url='https://www.openmp.org/specifications/'>especificação OpenMP
+API</ulink> como referência para detalhes.
+            </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><varname>TMPDIR</varname></term>
+            
+            <!-- As per IEEE Std 1003.1, 2004 Edition, “8.3 Other Environment Variables”:
+            https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html#tag_08_03
+            -->
+<listitem>
+                <para>
+                    O <command>&p;</command> faz uso pesado de ficheiros temporários. Irá
+guardá-los num directório especificado por esta variável. A predefinição é
+<filename>/tmp</filename>.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </para>
+</refsection>
+
+<refsection id='template-language'>
+    <title id='template-language.title'>Sintaxe de linguagem</title>
+    <refsection>
+        <title>Sintaxe de modelo</title>
+        <para>
+            A linguagem de modelo é mais ou menos modelada na <ulink
+url='https://docs.python.org/2/library/string.html#format-string-syntax'>Sintaxe
+de formatação de strings de Python</ulink>.
+        </para>
+        <para>
+            Um modelo é um pedaço de texto que contém <firstterm>campos</firstterm>,
+limitados por chavetas <literal>{</literal><literal>}</literal>.  Os campos
+são substituídos por valores formatados apropriadamente quando o modelo é
+avaliado. Além disso, <literal>{{</literal> é substituído por uma única
+<literal>{</literal> e <literal>}}</literal> é substituído por uma única
+<literal>}</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Sintaxe de campo</title>
+        <para>
+            Cada campo consiste num nome de variável, seguido opcionalmente de um shift,
+seguido opcionalmente de uma especificação de formato.
+        </para>
+        <para>
+            A shift é um número inteiro assinalado (isto é, começa com um caractere
+<literal>+</literal> ou <literal>-</literal>.
+        </para>
+        <para>
+            A especificação consiste de dois pontos (:), seguido de uma especificação de
+largura.
+        </para>
+        <para>
+            A especificação de largura é um número inteiro decimal que define a largura
+mínima do campo. Se não especificada, então a largura do campo será
+determinada pelo conteúdo. Preceder a especificação de largura com um
+caractere zero (<literal>0</literal>) activa enchimento-zero.
+        </para>
+        <para>
+            A especificação de largura é opcionalmente seguida de um caractere asterisco
+(<literal>*</literal>), o qual aumenta a largura de campo mínimo para a
+largura do conteúdo mais longo possível da variável.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Variáveis disponíveis</title>
+        <variablelist>
+            <varlistentry>
+                <term><varname>dpage</varname></term>
+                <listitem>
+                    <para>Número de página no documento DjVu.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><varname>page</varname></term>
+                <term><varname>spage</varname></term>
+                <listitem>
+                    <para>Número de página no documento PDF.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><varname>label</varname></term>
+                <listitem>
+                    <para>Etiqueta de página (número de página lógico) no documento PDF.</para>
+                    <para>Esta variável está disponível apenas para títulos de páginas.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Detalhes de implementação</title>
+    <refsection>
+        <title>Algoritmo de separação de camadas</title>
+        <para>
+            A menos que a opção <option>--monochrome</option> seja usada, o &p; usa o
+seguinte algoritmo de separação de camadas nativas: <orderedlist>
+                <listitem>
+                    <para>
+                        Para cada página, faz o seguinte: <orderedlist>
+                            <listitem>
+                                <para>
+                                    "Rasteriza" a página num mapa de pixeis, na maneira usual.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    "Rasteriza" a página em outro mapa de pixeis, omitindo os seguintes
+elementos da página:
+                                    <itemizedlist>
+                                        <listitem><para>texto,</para></listitem>
+                                        <listitem><para>imagens raster de 1 bit-por-pixel,</para></listitem>
+                                        <listitem><para>elementos vectoriais (excepto preenchimentos e áreas grandes).</para></listitem>
+                                    </itemizedlist>
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Compara ambos mapas de pixeis, pixel por pixel: <orderedlist>
+                                        <listitem>
+                                            <para>
+                                                Se as suas cores coincidirem, classifica o pixel como parte da camada de
+fundo.
+                                            </para>
+                                        </listitem>
+                                        <listitem>
+                                            <para>
+                                                Caso contrário, classifica o pixel como parte da cama de primeiro plano.
+                                            </para>
+                                        </listitem>
+                                    </orderedlist>
+                                </para>
+                            </listitem>
+                        </orderedlist>
+                    </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Relatórios de bugs</title>
+    <para>
+        Se você encontrar um bug em &p;, por favor reporte-o no <ulink
+url='https://github.com/jwilk/pdf2djvu/issues'>Acompanhamento de
+problemas</ulink> ou para <ulink url='https://groups.io/g/pdf2djvu'>a lista
+de mail</ulink>.
+    </para>
+</refsection>
+
+<refsection>
+    <title>Veja também</title>
+    <para>
+        <citerefentry> <refentrytitle>djvu</refentrytitle> <manvolnum>1</manvolnum>
+</citerefentry>, <citerefentry> <refentrytitle>djvudigital</refentrytitle>
+<manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+<refentrytitle>csepdjvu</refentrytitle> <manvolnum>1</manvolnum>
+</citerefentry>
+    </para>
+</refsection>
+
+</refentry>
+
+
+<!-- vim:set ts=4 sts=4 sw=4 tw=120 et: -->

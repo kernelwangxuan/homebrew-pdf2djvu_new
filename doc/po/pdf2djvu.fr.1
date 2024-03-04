@@ -1,0 +1,636 @@
+'\" t
+.\"     Title: pdf2djvu
+.\"    Author: Jakub Wilk <jwilk@jwilk.net>
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 09/08/2022
+.\"    Manual: pdf2djvu Manual
+.\"    Source: pdf2djvu 0.9.19
+.\"  Language: French
+.\"
+.TH "PDF2DJVU" "1" "09/08/2022" "pdf2djvu 0\&.9\&.19" "pdf2djvu Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+pdf2djvu \- Cr\('eer des fichiers DjVu \(`a partir des fichiers PDF
+.SH "SYNOPSIS"
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR [{\fB\-o\fR\ |\ \fB\-\-output\fR}\ \fIfichier\-sortie\-djvu\fR] [\fIoption\fR...] \fIfichier\-pdf\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-i\fR\ |\ \fB\-\-indirect\fR}\ \fIfichier\-index\-djvu\fR  [\fIoption\fR...] \fIfichier\-pdf\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-\-version\fR | \fB\-\-help\fR | \fB\-h\fR}
+.SH "DESCRIPTION"
+.PP
+Ce programme cr\('ee un fichier DjVu \(`a partir d\(cqun ou plusieurs fichiers au format de document portable (PDF)\&.
+.SH "OPTIONS"
+.PP
+\fBpdf2djvu\fR
+accepte les options suivantes\ \&:
+.SS "Type de document, noms de fichier"
+.PP
+\fB\-o\fR, \fB\-\-output=\fR\fB\fIfichier\-sortie\-djvu\fR\fR
+.RS 4
+Produire un document de plusieurs pages ensemble\&. \('Ecrire le fichier dans
+\fIfichier\-sortie\-djvu\fR
+au lieu de la sortie standard\&.
+.RE
+.PP
+\fB\-i\fR, \fB\-\-indirect=\fR\fB\fIfichier\-index\-djvu\fR\fR
+.RS 4
+Produire un document multi\-page compl\('ement\&. Utiliser
+\fIfichier\-index\-djvu\fR
+comme nom de fichier d\(cqindex\ \&; mettre les fichiers \('el\('ements dans le m\(^eme r\('epertoire\&. Le r\('epertoire doit exister et \(^etre accessible en lecture\&.
+.RE
+.PP
+\fB\-\-page\-id\-template=\fR\fB\fImod\(`ele\fR\fR
+.RS 4
+Indiquer le sch\('ema de nommage pour les identificateurs de page\&. Consulter la
+\(Fo\ \&MISE EN FORME DE MOD\(`ELE\ \&\(Fc
+section pour la description de langue du mod\(`ele\&.
+.sp
+Le mod\(`ele par d\('efaut est
+\(Fo\ \&p{page:04*}\&.djvu\ \&\(Fc\&.
+.sp
+Pour des raisons de portabilit\('e, les identificateurs de page\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+doivent \(^etre compos\('es uniquement de lettres ASCII minuscules, chiffres,
+_,
++,
+\-
+et de points,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+ne peuvent pas commencer par un
++,
+\-
+ou un point,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+ne peuvent pas contenir deux points cons\('ecutifs,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+doivent se terminer par l\(cqextension
+\&.djvu
+ou
+\&.djv\&.
+.RE
+.sp
+.RE
+.PP
+\fB\-\-page\-id\-prefix=\fR\fB\fIpr\('efixe\fR\fR
+.RS 4
+\('Equivalent \(`a
+\(Fo\ \&\-\-page\-id\-template=\fIpr\('efixe\fR{page:04*}\&.djvu\ \&\(Fc\&.
+.RE
+.PP
+\fB\-\-page\-title\-template=\fR\fB\fImod\(`ele\fR\fR
+.RS 4
+Indiquer le mod\(`ele pour les titres de page\&. Consulter la
+\(Fo\ \&MISE EN FORME DE MOD\(`ELE\ \&\(Fc
+section pour la description de langue du mod\(`ele\&.
+.sp
+Le mod\(`ele par d\('efaut est
+\(Fo\ \&{label}\ \&\(Fc\&.
+.RE
+.PP
+\fB\-\-no\-page\-titles\fR
+.RS 4
+Ne pas d\('efinir le titre des pages\&.
+.RE
+.SS "R\('esolution, taille de la page"
+.PP
+\fB\-d\fR, \fB\-\-dpi=\fR\fB\fIr\('esolution\fR\fR
+.RS 4
+Indiquer la r\('esolution souhait\('ee \(`a
+\fIr\('esolution\fR
+points par pouce\&. La valeur par d\('efaut est 300\ \&PPP\&. La plage autoris\('ee est\ \&: 72\ \&\(<=\ \&\fIr\('esolution\fR\ \&\(<=\ \&6000\&.
+.RE
+.PP
+\fB\-\-media\-box\fR
+.RS 4
+Utiliser
+MediaBox
+pour d\('eterminer la taille de la page\&.
+CropBox
+est utilis\('e par d\('efaut\&.
+.RE
+.PP
+\fB\-\-page\-size=\fR\fB\fIlargeur\fR\fR\fBx\fR\fB\fIhauteur\fR\fR
+.RS 4
+Indiquer la taille pr\('ef\('er\('ee de page \(`a
+\fIlargeur\fR
+pixels \(mu
+\fIhauteur\fR
+pixels\&. La taille r\('eelle de la page peut \(^etre modifi\('ee afin de respecter le ratio d\(cqaspect et les limites de r\('esolution de DjVu (Cette option prend le pas sur
+\fB\-d\fR/\fB\-\-dpi\fR\&.)\&.
+.RE
+.PP
+\fB\-\-guess\-dpi\fR
+.RS 4
+Essayer de deviner la r\('esolution native en examinant les images incorpor\('ees\&. \(`A utiliser avec pr\('ecaution\&.
+.RE
+.SS "Qualit\('e d\(cqimage"
+.PP
+\fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB+\fR\fB\fI\&.\&.\&.\fR\fR\fB+\fR\fB\fIn\fR\fR, \fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB,\fR\fB\fI\&.\&.\&.\fR\fR\fB,\fR\fB\fIn\fR\fR
+.RS 4
+Indiquer la qualit\('e d\(cqencodage du calque d\(cqarri\(`ere\-plan IW44\&. Cette option est similaire \(`a l\(cqoption
+\fB\-slice\fR
+de
+\fBc44\fR\&. Consulter la page de manuel de
+\fBc44\fR(1)
+pour plus de d\('etails\&. La valeur par d\('efaut est
+72+11+10+10\&.
+.RE
+.PP
+\fB\-\-bg\-subsample=\fR\fB\fIn\fR\fR
+.RS 4
+Indiquer le ratio de sous\-\('echantillonnage de l\(cqarri\(`ere\-plan\&. La valeur par d\('efaut est 3\&. Les valeurs valables sont des entiers entre 1 et 12 inclus\&.
+.RE
+.PP
+\fB\-\-fg\-colors=default\fR
+.RS 4
+Essayer de conserver toutes les couleurs du calque de premier plan\&. C\(cqest la valeur par d\('efaut\&.
+.RE
+.PP
+\fB\-\-fg\-colors=web\fR
+.RS 4
+R\('eduire les couleurs du calque de premier plan \(`a celles de la palette Web (216\ \&couleurs)\&. Cette option n\(cqest pas recommand\('ee\&.
+.RE
+.PP
+\fB\-\-fg\-colors=\fR\fB\fIn\fR\fR
+.RS 4
+Utiliser GraphicsMagick pour r\('eduire le nombre de couleurs distinctes dans le calque de premier plan \(`a
+\fIn\fR\&. Les valeurs autoris\('ees sont des entiers compris entre 1 et 4080\&. Cette option n\(cqest pas recommand\('ee\&.
+.RE
+.PP
+\fB\-\-fg\-colors=black\fR
+.RS 4
+Abandonner toutes les informations de couleur du calque de premier plan\&.
+.RE
+.PP
+\fB\-\-monochrome\fR
+.RS 4
+Transformer les pages au format bitmap monochrome\&. Avec cette option, les options
+\fB\-\-bg\-\fR\fB\fI\&.\&.\&.\fR\fR
+et
+\fB\-\-fg\-\fR\fB\fI\&.\&.\&.\fR\fR
+ne sont pas respect\('ees\&.
+.RE
+.PP
+\fB\-\-loss\-level=\fR\fB\fIn\fR\fR
+.RS 4
+Indiquer le niveau de compression avec perte\&. La valeur par d\('efaut est 0 (sans perte)\&. Les valeurs autoris\('ees sont des entiers compris entre 0 et 200, inclus\&. Cette option est similaire \(`a l\(cqoption
+\fB\-losslevel\fR
+de
+\fBcjb2\fR\ \&; consulter la page de manuel de
+\fBcjb2\fR(1)
+pour plus de d\('etails\&. Cette option peut \(^etre utilis\('ee seulement avec l\(cqoption
+\fB\-\-monochrome\fR\&.
+.RE
+.PP
+\fB\-\-lossy\fR
+.RS 4
+Synonyme de
+\fB\-\-loss\-level=100\fR\&.
+.RE
+.PP
+\fB\-\-anti\-alias\fR
+.RS 4
+Activer la police et le vecteur anticr\('enelage\&. Cette option n\(cqest pas recommand\('ee\&.
+.RE
+.SS "Extraction"
+.PP
+\fB\-\-no\-metadata\fR
+.RS 4
+Ne pas extraire les m\('etadonn\('ees\&.
+.sp
+Par d\('efaut\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Les entr\('ees suivantes du dictionnaire de l\(cqinformation du document sont extraites\ \&:
+titre,
+auteur,
+sujet,
+cr\('eateur,
+producteur,
+date de cr\('eation,
+date de modification\&. Les horodatages sont format\('es selon la
+\m[blue]\fBRFC 3999\fR\m[]\&\s-2\u[1]\d\s+2, avec les composants date et heure s\('epar\('es par une espace unique\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Les m\('etadonn\('ees XMP sont extraites (ou cr\('e\('ees) et mises \(`a jour en cons\('equence\&.
+.RE
+.sp
+.if n \{\
+.sp
+.\}
+.RS 4
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBNote\fR
+.ps -1
+.br
+Si plusieurs documents de saisie sont indiqu\('es, seules les m\('etadonn\('ees du premier sont prises en compte\&.
+.sp .5v
+.RE
+.RE
+.PP
+\fB\-\-verbatim\-metadata\fR
+.RS 4
+Conserver les m\('etadonn\('ees originelles intactes\&.
+.RE
+.PP
+\fB\-\-no\-outline\fR
+.RS 4
+Ne pas extraire la table des mati\(`eres du document\&.
+.RE
+.PP
+\fB\-\-hyperlinks=border\-avis\fR
+.RS 4
+Rendre les contours de lien hypertexte toujours visibles\&.
+.sp
+Par d\('efaut, un contour de lien hypertexte est visible uniquement lorsque la souris est sur le lien hypertexte\&.
+.RE
+.PP
+\fB\-\-hyperlinks=#\fR\fB\fIRRGGBB\fR\fR
+.RS 4
+Forcer la couleur indiqu\('ee pour le contour des liens hypertextes\&.
+.RE
+.PP
+\fB\-\-no\-hyperlinks\fR, \fB\-\-hyperlinks=none\fR
+.RS 4
+Ne pas extraire les liens hypertextes\&.
+.RE
+.PP
+\fB\-\-no\-text\fR
+.RS 4
+Ne pas extraire le texte\&.
+.RE
+.PP
+\fB\-\-words\fR
+.RS 4
+Extraire le texte\&. Enregistrer l\(cqemplacement de chaque mot\&. Cela est fait par d\('efaut\&.
+.RE
+.PP
+\fB\-\-lines\fR
+.RS 4
+Extraire le texte\&. Enregistrer l\(cqemplacement de chaque ligne, plut\(^ot que de chaque mot\&.
+.RE
+.PP
+\fB\-\-crop\-text\fR
+.RS 4
+Ne pas extraire de texte en dehors des limites de page\&.
+.RE
+.PP
+\fB\-\-no\-nfkc\fR
+.RS 4
+Ne pas appliquer la normalisation
+\m[blue]\fBNFKC\fR\m[]\&\s-2\u[2]\d\s+2
+sur le texte, except\('e pour les caract\(`eres des
+\m[blue]\fBtables de caract\(`eres\fR\m[]\&\s-2\u[3]\d\s+2
+(U+FB00\(enU+FB4F), qui sont normalis\('ees sans condition\&.
+.sp
+Par d\('efaut, la normalisation NFKC est appliqu\('ee pour tous les caract\(`eres\&.
+.RE
+.PP
+\fB\-\-filter\-text=\fR\fB\fIligne\-commande\fR\fR
+.RS 4
+Filtrer le texte \(`a travers la
+\fIligne\-commande\fR\&. Le filtre fourni doit pr\('eserver les espaces, les caract\(`eres de contr\(^ole et les chiffres d\('ecimaux\&.
+.sp
+Cette option implique
+\fB\-\-no\-nfkc\fR\&.
+.RE
+.PP
+\fB\-p\fR, \fB\-\-pages=\fR\fB\fIplage\-pages\fR\fR
+.RS 4
+Indiquer les pages \(`a convertir\&.
+\fIplage\-pages\fR
+est une liste de sous\-plages (sous forme de valeurs s\('epar\('ees par des virgules)\&. Chaque sous\-plage est soit une seule page (p\&. ex\&.\ \&17) ou une plage de pages contigu\(:es (p\&. ex\&.\ \&37\-42)\&. Les num\('eros de page ne peuvent \(^etre dupliqu\('es\&. Les pages sont num\('erot\('ees en commen\(,cant \(`a\ \&1\&.
+.sp
+Par d\('efaut, toutes les pages sont converties\&.
+.RE
+.SS "R\('ealisation"
+.PP
+\fB\-j\fR, \fB\-\-jobs=\fR\fB\fIn\fR\fR
+.RS 4
+Utiliser
+\fIn\fR
+processus l\('egers pour effectuer la conversion\&. La valeur par d\('efaut est d\(cqutiliser un processus\&.
+.RE
+.PP
+\fB\-j0\fR, \fB\-\-jobs=0\fR
+.RS 4
+D\('eterminer automatiquement le nombre de processus \(`a utiliser pour effectuer la conversion\&.
+.RE
+.SS "Informations, aide"
+.PP
+\fB\-v\fR, \fB\-\-verbose\fR
+.RS 4
+Afficher davantage de messages d\(cqinformation lors de la conversion du fichier\&.
+.RE
+.PP
+\fB\-q\fR, \fB\-\-quiet\fR
+.RS 4
+Ne pas afficher de message d\(cqinformation lors de la conversion du fichier\&.
+.RE
+.PP
+\fB\-\-version\fR
+.RS 4
+Afficher l\(cqinformation de version et quitter\&.
+.RE
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Afficher l\(cqaide et quitter\&.
+.RE
+.SH "ENVIRONNEMENT"
+.PP
+Les variables d\(cqenvironnement suivantes affectent
+\fBpdf2djvu\fR
+sur les syst\(`emes Unix\ \&:
+.PP
+\fIOMP_\fR\fI\fI*\fR\fR
+.RS 4
+Les d\('etails du comportement d\(cqex\('ecution concernant le parall\('elisme peuvent \(^etre contr\(^ol\('es par plusieurs variables d\(cqenvironnement\&. Se r\('ef\('erer \(`a la
+\m[blue]\fBsp\('ecification de l\(cqinterface de programmation (API) OpenMP\fR\m[]\&\s-2\u[4]\d\s+2
+pour plus de d\('etails\&.
+.RE
+.PP
+\fITMPDIR\fR
+.RS 4
+\fBpdf2djvu\fR
+fait un usage intensif de fichiers temporaires\&. Il les stocke dans un r\('epertoire indiqu\('e par cette variable\&. La valeur par d\('efaut est
+/tmp\&.
+.RE
+.SH "MISE EN FORME DE MOD\(`ELE"
+.SS "Syntaxe de mod\(`ele"
+.PP
+Le mise en forme du mod\(`ele est plus ou moins calqu\('ee sur la
+\m[blue]\fBsyntaxe de formatage de cha\(^ine en Python\fR\m[]\&\s-2\u[5]\d\s+2\&.
+.PP
+Un mod\(`ele est un morceau de texte qui contient des
+champs, entour\('es par des accolades
+{}\&. Les champs sont remplac\('es par des valeurs mises en forme de mani\(`ere appropri\('ee lorsque le mod\(`ele est \('evalu\('e\&. De plus,
+{{
+est remplac\('e par un seul
+{
+et
+}}
+est remplac\('e par un seul
+}\&.
+.SS "Syntaxe de champ"
+.PP
+Chaque champ est constitu\('e d\(cqun nom de variable, \('eventuellement suivi d\(cqun d\('ecalage, suivi \('eventuellement d\(cqune indication de format\&.
+.PP
+Le d\('ecalage est un entier sign\('e (c\&.\-\(`a\-d\&. commen\(,cant par un caract\(`ere
++
+ou
+\-)\&.
+.PP
+L\(cqindication de format est constitu\('ee d\(cqun deux\-points, suivi d\(cqune indication de largeur\&.
+.PP
+L\(cqindication de largeur est un entier d\('ecimal d\('efinissant la largeur minimale de champ\&. Si elle n\(cqest pas indiqu\('ee, alors la largeur du champ sera d\('etermin\('ee par le contenu\&. Mettre le caract\(`ere z\('ero (0) avant la pr\('ecision de largeur permet le remplissage par des z\('eros\&.
+.PP
+L\(cqindication de largeur peut \(^etre suivie d\(cqun ast\('erisque (*), ce qui augmente la largeur minimale de champ \(`a la plus grande dimension possible du contenu de la variable\&.
+.SS "Les variables disponibles"
+.PP
+\fIdpage\fR
+.RS 4
+Num\('ero de page dans le document DjVu\&.
+.RE
+.PP
+\fIpage\fR, \fIspage\fR
+.RS 4
+Num\('ero de page dans le document PDF\&.
+.RE
+.PP
+\fIlabel\fR
+.RS 4
+\('Etiquette de page (num\('ero logique de la page) dans le document PDF\&.
+.sp
+Cette variable est seulement disponible pour les titres de page\&.
+.RE
+.SH "D\('ETAILS D\(cqIMPL\('EMENTATION"
+.SS "Algorithme de s\('eparation de calque"
+.PP
+\(`A moins que l\(cqoption
+\fB\-\-monochrome\fR
+soit activ\('ee, pdf2djvu utilise le simple algorithme de s\('eparation de calques suivant\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Pour chaque page, proc\('eder comme suit\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Tramer la page dans un tableau de pixels, de la mani\(`ere habituelle\ \&;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Tramer la page dans une autre tableau de pixels, en omettant les \('el\('ements de page suivants\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+texte,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+images matricielles d\(cqun bit par pixel,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+\('el\('ements vectoriels (sauf les remplissages de grandes zones)\ \&;
+.RE
+.sp
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  3." 4.2
+.\}
+Comparer deux tableaux de pixels, pixel par pixel\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Si leurs couleurs sont identiques, classer le pixel comme une partie du calque d\(cqarri\(`ere\-plan\ \&;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Dans le cas contraire, classer le pixel comme une partie du calque de premier plan\&.
+.RE
+.sp
+.RE
+.sp
+.RE
+.sp
+.SH "RAPPORTS DE BOGUE"
+.PP
+Si vous trouvez un bogue dans pdf2djvu, veuillez le signaler au
+\m[blue]\fBsyst\(`eme de suivi des bogues\fR\m[]\&\s-2\u[6]\d\s+2
+ou \(`a la
+\m[blue]\fBliste de diffusion\fR\m[]\&\s-2\u[7]\d\s+2\&.
+.SH "VOIR AUSSI"
+.PP
+\fBdjvu\fR(1),
+\fBdjvudigital\fR(1),
+\fBcsepdjvu\fR(1)
+.SH "NOTES"
+.IP " 1." 4
+RFC 3999
+.RS 4
+\%https://www.ietf.org/rfc/rfc3339
+.RE
+.IP " 2." 4
+NFKC
+.RS 4
+\%https://unicode.org/reports/tr15/
+.RE
+.IP " 3." 4
+tables de caract\(`eres
+.RS 4
+\%https://unicode.org/charts/PDF/UFB00.pdf
+.RE
+.IP " 4." 4
+sp\('ecification de l\(cqinterface de programmation (API) OpenMP
+.RS 4
+\%https://www.openmp.org/specifications/
+.RE
+.IP " 5." 4
+syntaxe de formatage de cha\(^ine en Python
+.RS 4
+\%https://docs.python.org/2/library/string.html#format-string-syntax
+.RE
+.IP " 6." 4
+syst\(`eme de suivi des bogues
+.RS 4
+\%https://github.com/jwilk/pdf2djvu/issues
+.RE
+.IP " 7." 4
+liste de diffusion
+.RS 4
+\%https://groups.io/g/pdf2djvu
+.RE

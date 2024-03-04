@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Copyright © 2009-2015 Jakub Wilk <jwilk@jwilk.net>
+#
+# This file is part of pdf2djvu.
+#
+# pdf2djvu is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# pdf2djvu is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+if ! command -v "$1" >/dev/null
+then
+  printf 'Usage: %s xgettext [xgettext-option]...\n' "$0" >&2
+  exit 1
+fi
+options=$(cat <<EOF
+--c++ \
+--keyword=_ --keyword=N_
+--flag=_:1:pass-c-format
+--flag=N_:1:pass-c-format
+--flag=string_format:1:c-format
+EOF
+)
+
+grep -E '^#( |$)' "$0"
+"$@" $options -o - \
+| sed \
+  -e '/^# SOME DESCRIPTIVE TITLE/,/^#.*YEAR[.]$/ d' \
+  -e '/^msgstr ""$/,/^$/ s/CHARSET/UTF-8/'

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Copyright © 2009-2018 Jakub Wilk <jwilk@jwilk.net>
+#
+# This file is part of pdf2djvu.
+#
+# pdf2djvu is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# pdf2djvu is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+set -e -u
+version=${1:?"no version number provided"}
+windows_version=$(IFS=.; printf '%d,%d,%d,%d' $version)
+po_files=$(ls po/*.po po/*.pot 2>/dev/null || true)
+doc_po_files=$(ls doc/po/*.po doc/po/*.pot 2>/dev/null || true)
+PS4='$ '
+set -x
+dch -m -v "$version" -u low -c doc/changelog
+export version windows_version
+perl -pi -e 's/^AC_INIT[(]\[\S+\], \[\K[0-9.]+/$ENV{version}/' configure.ac
+perl -pi -e 's/VERSION \K[0-9,]+/$ENV{windows_version}/' win32-version.rc
+perl -pi -e 's/<!ENTITY version \047\K[0-9.]+/$ENV{version}/' doc/*.xml
+perl -pi -e 's/^"Project-Id-Version: \S+ \K[0-9.]+/$ENV{version}/' $po_files $doc_po_files
+perl -pi -e '/^#[.] type: Content of the version entity/ and $t = 1; $t and s/^msg(id|str) "\K[0-9.]+/$ENV{version}/; /^$/ and $t = 0;' $doc_po_files

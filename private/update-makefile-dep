@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# Copyright © 2009-2015 Jakub Wilk <jwilk@jwilk.net>
+#
+# This file is part of pdf2djvu.
+#
+# pdf2djvu is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# pdf2djvu is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+_colordiff()
+{
+  if command -v colordiff >/dev/null
+  then
+    colordiff
+  else
+    cat
+  fi
+}
+
+make paths.hh || exit 1
+: "${CXX:=g++}"
+"$CXX" -MM *.cc \
+| while read line
+do
+  target=$(printf '%s' "$line" | cut -d: -f1)
+  deps=$(printf '%s' "$line" | cut -d: -f2 | tr ' ' '\n' | sort)
+  for dep in $deps
+  do
+    echo "$target: $dep"
+  done
+done \
+| sort > Makefile.dep.new
+diff -u Makefile.dep Makefile.dep.new | _colordiff
+mv Makefile.dep.new Makefile.dep
+
+# vim:ts=2 sts=2 sw=2 et

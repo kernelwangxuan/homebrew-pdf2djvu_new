@@ -1,0 +1,639 @@
+'\" t
+.\"     Title: pdf2djvu
+.\"    Author: Jakub Wilk <jwilk@jwilk.net>
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 09/08/2022
+.\"    Manual: Manual do pdf2djvu
+.\"    Source: pdf2djvu 0.9.19
+.\"  Language: Portuguese
+.\"
+.TH "PDF2DJVU" "1" "09/08/2022" "pdf2djvu 0\&.9\&.19" "Manual do pdf2djvu"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOME"
+pdf2djvu \- cria ficheiros DjVu a partir de ficheiros PDF
+.SH "SINOPSE"
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR [{\fB\-o\fR\ |\ \fB\-\-output\fR}\ \fIficheiro\-djvu\-resultante\fR] [\fIop\(,c\(~ao\fR...] \fIficheiro\-pdf\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-i\fR\ |\ \fB\-\-indirect\fR}\ \fIficheiro\-djvu\-\('indice\fR  [\fIop\(,c\(~ao\fR...] \fIficheiro\-pdf\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-\-version\fR | \fB\-\-help\fR | \fB\-h\fR}
+.SH "DESCRI\(,C\(~AO"
+.PP
+Este programa cria um ficheiro DjVu a partir de um ou mais ficheiros Portable Document Format\&.
+.SH "OP\(,C\(~OES"
+.PP
+\fBpdf2djvu\fR
+aceita as seguintes op\(,c\(~oes:
+.SS "Tipo de documento, nome de ficheiros"
+.PP
+\fB\-o\fR, \fB\-\-output=\fR\fB\fIficheiro\-djvu\-resultante\fR\fR
+.RS 4
+Gera um documento agrupado de v\('arias p\('aginas\&. Escreve o ficheiro em
+\fIficheiro\-djvu\-resultante\fR
+em vez de o fazer na sa\('ida standard\&.
+.RE
+.PP
+\fB\-i\fR, \fB\-\-indirect=\fR\fB\fIficheiro\-djvu\-\('indice\fR\fR
+.RS 4
+Gera um documento de v\('arias p\('aginas indirecto\&. Use
+\fIficheiro\-djvu\-\('indice\fR
+como o nome do ficheiro do \('indice; ponha os ficheiros dos componentes no mesmo direct\('orio\&. O direct\('orio tem de existir e ser pass\('ivel de escrita\&.
+.RE
+.PP
+\fB\-\-page\-id\-template=\fR\fB\fImodelo\fR\fR
+.RS 4
+Especifica o esquema de nomea\(,c\(~ao para os identificadores das p\('aginas\&. Consulte a sec\(,c\(~ao
+\(lqSINTAXE DE LINGUAGEM\(rq
+para a descri\(,c\(~ao da linguagem do modelo\&.
+.sp
+O modelo predefinido \('e
+\(lqp{page:04*}\&.djvu\(rq\&.
+.sp
+Por raz\(~oes de portabilidade, os identificadores de p\('aginas:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+devem consistir apenas de letras ASCII min\('usculas, d\('igitos,
+_,
++,
+\-
+e ponto,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+n\(~ao podem come\(,car com um
++,
+\-
+ou um ponto,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+n\(~ao podem conter dois pontos consecutivos\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+t\(^em de terminar com a extens\(~ao
+\&.djvu
+ou
+\&.djv\&.
+.RE
+.sp
+.RE
+.PP
+\fB\-\-page\-id\-prefix=\fR\fB\fIprefixo\fR\fR
+.RS 4
+Equivalente a
+\(lq\-\-page\-id\-template=\fIprefixo\fR{page:04*}\&.djvu\(rq\&.
+.RE
+.PP
+\fB\-\-page\-title\-template=\fR\fB\fImodelo\fR\fR
+.RS 4
+Especifica o modelo para os t\('itulos das p\('aginas\&. Consulte a sec\(,c\(~ao
+\(lqSINTAXE DE LINGUAGEM\(rq
+para a descri\(,c\(~ao da linguagem do modelo\&.
+.sp
+O modelo predefinido \('e
+\(lq{label}\(rq\&.
+.RE
+.PP
+\fB\-\-no\-page\-titles\fR
+.RS 4
+N\(~ao define t\('itulos das p\('aginas\&.
+.RE
+.SS "Resolu\(,c\(~ao, tamanho da p\('agina"
+.PP
+\fB\-d\fR, \fB\-\-dpi=\fR\fB\fIresolu\(,c\(~ao\fR\fR
+.RS 4
+Especifica a resolu\(,c\(~ao desejada para
+\fIresolu\(,c\(~ao\fR
+em pontos por polegada\&. A predefini\(,c\(~ao \('e 300 dpi\&. Os limites permitidos s\(~ao 72 \(<=
+\fIresolu\(,c\(~ao\fR
+\(<= 6000\&.
+.RE
+.PP
+\fB\-\-media\-box\fR
+.RS 4
+Use
+MediaBox
+para determinar o tamanho da p\('agina\&. Por predefini\(,c\(~ao \('e usado
+CropBox\&.
+.RE
+.PP
+\fB\-\-page\-size=\fR\fB\fIlargura\fR\fR\fBx\fR\fB\fIaltura\fR\fR
+.RS 4
+Especifica o tamanho de p\('agina preferido para
+\fIlargura\fR
+pixeis \(mu
+\fIaltura\fR
+pixeis\&. O tamanho de pagina real pode ser alterado de modo a respeitar o r\('acio de aspecto e as limita\(,c\(~oes do DjVu em resolu\(,c\(~ao\&. (Esta op\(,c\(~ao toma preced\(^encia sobre
+\fB\-d\fR/\fB\-\-dpi\fR\&.)
+.RE
+.PP
+\fB\-\-guess\-dpi\fR
+.RS 4
+Tenta adivinhar a resolu\(,c\(~ao nativa ao inspeccionar as imagens embebidas\&. Use com cuidado\&.
+.RE
+.SS "Qualidade de imagem"
+.PP
+\fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB+\fR\fB\fI\&...\fR\fR\fB+\fR\fB\fIn\fR\fR, \fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB,\fR\fB\fI\&...\fR\fR\fB,\fR\fB\fIn\fR\fR
+.RS 4
+Especifica a qualidade de codifica\(,c\(~ao da camada de fundo IW44\&. Esta op\(,c\(~ao \('e semelhante \(`a op\(,c\(~ao
+\fB\-slice\fR
+do
+\fBc44\fR\&. Consulte o manual do
+\fBc44\fR(1)
+para detalhes\&. A predefini\(,c\(~ao \('e
+72+11+10+10\&.
+.RE
+.PP
+\fB\-\-bg\-subsample=\fR\fB\fIn\fR\fR
+.RS 4
+Especifica o r\('acio de sub\-amostragem do fundo\&. A predefini\(,c\(~ao \('e 3\&. Os valores v\('alidos s\(~ao n\('umeros inteiros entre 1 e 12, inclusive\&.
+.RE
+.PP
+\fB\-\-fg\-colors=default\fR
+.RS 4
+Tenta preservar todas as cores da camada de fundo\&. Isto \('e a predefini\(,c\(~ao\&.
+.RE
+.PP
+\fB\-\-fg\-colors=web\fR
+.RS 4
+Reduz as cores da camada de fundo para a palete web (256 cores)\&. Esta op\(,c\(~ao n\(~ao \('e recomendada\&.
+.RE
+.PP
+\fB\-\-fg\-colors=\fR\fB\fIn\fR\fR
+.RS 4
+Usa o GraphicsMagick para reduzir o n\('umero de cores distintas na camada do primeiro plano para
+\fIn\fR\&. Os valores v\('alidos s\(~ao n\('umeros inteiros entre 1 e 4080\&. Esta op\(,c\(~ao n\(~ao \('e recomendada\&.
+.RE
+.PP
+\fB\-\-fg\-colors=black\fR
+.RS 4
+Descarta qualquer informa\(,c\(~ao de cores da camada do primeiro plano\&.
+.RE
+.PP
+\fB\-\-monochrome\fR
+.RS 4
+Renderiza as p\('aginas como mapas de bits monocrom\('aticos\&. Com esta op\(,c\(~ao, as op\(,c\(~oes
+\fB\-\-bg\-\fR\fB\fI\&...\fR\fR
+e
+\fB\-\-fg\-\fR\fB\fI\&...\fR\fR
+n\(~ao s\(~ao respeitadas\&.
+.RE
+.PP
+\fB\-\-loss\-level=\fR\fB\fIn\fR\fR
+.RS 4
+Especifica a agressividade da compress\(~ao com perdas\&. A predefini\(,c\(~ao \('e 0 (sem perdas) Os valores v\('alidos s\(~ao n\('umeros inteiros entre 0 e 200, inclusive\&. Esta op\(,c\(~ao \('e semelhante \(`a op\(,c\(~ao
+\fB\-losslevel\fR
+do
+\fBcjb2\fR; consulte o manual do
+\fBcjb2\fR(1)
+para detalhes\&. Esta op\(,c\(~ao pode ser usada apenas se a op\(,c\(~ao
+\fB\-\-monochrome\fR
+estiver tamb\('em activa\&.
+.RE
+.PP
+\fB\-\-lossy\fR
+.RS 4
+Sin\('onimo para
+\fB\-\-loss\-level=100\fR\&.
+.RE
+.PP
+\fB\-\-anti\-alias\fR
+.RS 4
+Activa o anti\-aliasing das font e vectores\&. Esta op\(,c\(~ao n\(~ao \('e recomendada\&.
+.RE
+.SS "Extrac\(,c\(~ao"
+.PP
+\fB\-\-no\-metadata\fR
+.RS 4
+N\(~ao extrai os meta\-dados\&.
+.sp
+Por predefini\(,c\(~ao:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+As seguintes entradas do dicion\('ario de informa\(,c\(~ao do documento s\(~ao extra\('idas:
+T\('itulo,
+Autor,
+Assunto,
+Criador,
+Produtor,
+Data de Cria\(,c\(~ao,
+Data de Modifica\(,c\(~ao\&. As amostras de tempo s\(~ao formatadas em conformidade com
+\m[blue]\fBRFC 3999\fR\m[]\&\s-2\u[1]\d\s+2, com os componentes de data e a hora separados por um \('unico espa\(,co\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Os meta\-dados XMP s\(~ao extra\('idos (ou criados) e actualizados em conformidade\&.
+.RE
+.sp
+.if n \{\
+.sp
+.\}
+.RS 4
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBNota\fR
+.ps -1
+.br
+Se forem especificados m\('ultiplos documentos, apenas os meta\-dados do primeiro \('e tomado em conta\&.
+.sp .5v
+.RE
+.RE
+.PP
+\fB\-\-verbatim\-metadata\fR
+.RS 4
+Mant\(^em os meta\-dados originais intactos\&.
+.RE
+.PP
+\fB\-\-no\-outline\fR
+.RS 4
+N\(~ao extrai os contornos do documento\&.
+.RE
+.PP
+\fB\-\-hyperlinks=border\-avis\fR
+.RS 4
+Torna os limites das hiperliga\(,c\(~oes sempre vis\('iveis
+.sp
+Por predefini\(,c\(~ao, os limites das hiperliga\(,c\(~oes s\(~ao vis\('iveis apenas quando o rato est\('a sobre a hiperliga\(,c\(~ao\&.
+.RE
+.PP
+\fB\-\-hyperlinks=#\fR\fB\fIRRGGBB\fR\fR
+.RS 4
+For\(,ca a cor especificada para os limites das hiperliga\(,c\(~oes\&.
+.RE
+.PP
+\fB\-\-no\-hyperlinks\fR, \fB\-\-hyperlinks=none\fR
+.RS 4
+N\(~ao extrai as hiperliga\(,c\(~oes
+.RE
+.PP
+\fB\-\-no\-text\fR
+.RS 4
+N\(~ao extrai o texto\&.
+.RE
+.PP
+\fB\-\-words\fR
+.RS 4
+Extrai o texto\&. Recorda a localiza\(,c\(~ao de cada palavra\&. Isto \('e a predefini\(,c\(~ao\&.
+.RE
+.PP
+\fB\-\-lines\fR
+.RS 4
+Extrai o texto\&. Recorda a localiza\(,c\(~ao de cada linha, em vez de cada palavra\&.
+.RE
+.PP
+\fB\-\-crop\-text\fR
+.RS 4
+N\(~ao extrai nenhum texto fora dos limites da p\('agina\&.
+.RE
+.PP
+\fB\-\-no\-nfkc\fR
+.RS 4
+N\(~ao aplica a normaliza\(,c\(~ao
+\m[blue]\fBNFKC\fR\m[]\&\s-2\u[2]\d\s+2
+no texto, excepto para caracteres de
+\m[blue]\fBAlphabetic Presentation Forms block\fR\m[]\&\s-2\u[3]\d\s+2
+(U+FB00\(enU+FB4F), os quais s\(~ao normalizados incondicionalmente\&.
+.sp
+A predefini\(,c\(~ao \('e aplicar a normaliza\(,c\(~ao NFKC a todos os caracteres\&.
+.RE
+.PP
+\fB\-\-filter\-text=\fR\fB\fIlinha\-de\-comandos\fR\fR
+.RS 4
+Filtra o texto atrav\('es da
+\fIlinha de comandos\fR\&. O filtro fornecido tem de preservar os espa\(,cos em branco, caracteres de controle e d\('igitos decimais\&.
+.sp
+Esta op\(,c\(~ao implica
+\fB\-\-no\-nfkc\fR\&.
+.RE
+.PP
+\fB\-p\fR, \fB\-\-pages=\fR\fB\fIalcance\-de\-p\('aginas\fR\fR
+.RS 4
+Especifica as p\('aginas a converter\&.
+\fIalcance\-de\-p\('aginas\fR
+\('e uma lista de sub\-alcances separados por v\('irgulas\&. Cada sub\-alcance \('e ou uma p\('agina \('unica (ex\&.\ \&17) ou uma sequ\(^encia continua de p\('aginas (ex\&.\ \&37\-42)\&. N\(~ao \('e permitido n\('umeros de p\('agina duplicados\&. As p\('aginas s\(~ao numeradas a partir de n\('umero 1\&.
+.sp
+A predefini\(,c\(~ao \('e converter todas as p\('aginas\&.
+.RE
+.SS "Performance"
+.PP
+\fB\-j\fR, \fB\-\-jobs=\fR\fB\fIn\fR\fR
+.RS 4
+Usa
+\fIn\fR
+linhas de execu\(,c\(~ao (threads) para fazer a convers\(~ao\&. A predefini\(,c\(~ao \('e usar uma linha de execu\(,c\(~ao\&.
+.RE
+.PP
+\fB\-j0\fR, \fB\-\-jobs=0\fR
+.RS 4
+Determina automaticamente quantas linhas de execu\(,c\(~ao usar para fazer a convers\(~ao\&.
+.RE
+.SS "Informa\(,c\(~ao detalhada, ajuda"
+.PP
+\fB\-v\fR, \fB\-\-verbose\fR
+.RS 4
+Mostra mais mensagens informativas enquanto converte o ficheiro\&.
+.RE
+.PP
+\fB\-q\fR, \fB\-\-quiet\fR
+.RS 4
+N\(~ao mostra mensagens informativas enquanto converte o ficheiro\&.
+.RE
+.PP
+\fB\-\-version\fR
+.RS 4
+Mostra informa\(,c\(~ao de vers\(~ao e termina\&.
+.RE
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Mostra a ajuda e termina\&.
+.RE
+.SH "AMBIENTE"
+.PP
+As seguintes vari\('aveis de ambiente afectam o
+\fBpdf2djvu\fR
+em sistemas UNIX:
+.PP
+\fIOMP_\fR\fI\fI*\fR\fR
+.RS 4
+Detalhes no comportamento em tempo de execu\(,c\(~ao com respeito a paralelismo podem ser controlados por v\('arias vari\('aveis de ambiente\&. Por favor use a
+\m[blue]\fBespecifica\(,c\(~ao OpenMP API\fR\m[]\&\s-2\u[4]\d\s+2
+como refer\(^encia para detalhes\&.
+.RE
+.PP
+\fITMPDIR\fR
+.RS 4
+O
+\fBpdf2djvu\fR
+faz uso pesado de ficheiros tempor\('arios\&. Ir\('a guard\('a\-los num direct\('orio especificado por esta vari\('avel\&. A predefini\(,c\(~ao \('e
+/tmp\&.
+.RE
+.SH "SINTAXE DE LINGUAGEM"
+.SS "Sintaxe de modelo"
+.PP
+A linguagem de modelo \('e mais ou menos modelada na
+\m[blue]\fBSintaxe de formata\(,c\(~ao de strings de Python\fR\m[]\&\s-2\u[5]\d\s+2\&.
+.PP
+Um modelo \('e um peda\(,co de texto que cont\('em
+campos, limitados por chavetas
+{}\&. Os campos s\(~ao substitu\('idos por valores formatados apropriadamente quando o modelo \('e avaliado\&. Al\('em disso,
+{{
+\('e substitu\('ido por uma \('unica
+{
+e
+}}
+\('e substitu\('ido por uma \('unica
+}\&.
+.SS "Sintaxe de campo"
+.PP
+Cada campo consiste num nome de vari\('avel, seguido opcionalmente de um shift, seguido opcionalmente de uma especifica\(,c\(~ao de formato\&.
+.PP
+A shift \('e um n\('umero inteiro assinalado (isto \('e, come\(,ca com um caractere
++
+ou
+\-\&.
+.PP
+A especifica\(,c\(~ao consiste de dois pontos (:), seguido de uma especifica\(,c\(~ao de largura\&.
+.PP
+A especifica\(,c\(~ao de largura \('e um n\('umero inteiro decimal que define a largura m\('inima do campo\&. Se n\(~ao especificada, ent\(~ao a largura do campo ser\('a determinada pelo conte\('udo\&. Preceder a especifica\(,c\(~ao de largura com um caractere zero (0) activa enchimento\-zero\&.
+.PP
+A especifica\(,c\(~ao de largura \('e opcionalmente seguida de um caractere asterisco (*), o qual aumenta a largura de campo m\('inimo para a largura do conte\('udo mais longo poss\('ivel da vari\('avel\&.
+.SS "Vari\('aveis dispon\('iveis"
+.PP
+\fIdpage\fR
+.RS 4
+N\('umero de p\('agina no documento DjVu\&.
+.RE
+.PP
+\fIpage\fR, \fIspage\fR
+.RS 4
+N\('umero de p\('agina no documento PDF\&.
+.RE
+.PP
+\fIlabel\fR
+.RS 4
+Etiqueta de p\('agina (n\('umero de p\('agina l\('ogico) no documento PDF\&.
+.sp
+Esta vari\('avel est\('a dispon\('ivel apenas para t\('itulos de p\('aginas\&.
+.RE
+.SH "DETALHES DE IMPLEMENTA\(,C\(~AO"
+.SS "Algoritmo de separa\(,c\(~ao de camadas"
+.PP
+A menos que a op\(,c\(~ao
+\fB\-\-monochrome\fR
+seja usada, o pdf2djvu usa o seguinte algoritmo de separa\(,c\(~ao de camadas nativas:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Para cada p\('agina, faz o seguinte:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+"Rasteriza" a p\('agina num mapa de pixeis, na maneira usual\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+"Rasteriza" a p\('agina em outro mapa de pixeis, omitindo os seguintes elementos da p\('agina:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+texto,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+imagens raster de 1 bit\-por\-pixel,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+elementos vectoriais (excepto preenchimentos e \('areas grandes)\&.
+.RE
+.sp
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  3." 4.2
+.\}
+Compara ambos mapas de pixeis, pixel por pixel:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Se as suas cores coincidirem, classifica o pixel como parte da camada de fundo\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Caso contr\('ario, classifica o pixel como parte da cama de primeiro plano\&.
+.RE
+.sp
+.RE
+.sp
+.RE
+.sp
+.SH "RELAT\('ORIOS DE BUGS"
+.PP
+Se voc\(^e encontrar um bug em pdf2djvu, por favor reporte\-o no
+\m[blue]\fBAcompanhamento de problemas\fR\m[]\&\s-2\u[6]\d\s+2
+ou para
+\m[blue]\fBa lista de mail\fR\m[]\&\s-2\u[7]\d\s+2\&.
+.SH "VEJA TAMB\('EM"
+.PP
+\fBdjvu\fR(1),
+\fBdjvudigital\fR(1),
+\fBcsepdjvu\fR(1)
+.SH "NOTAS"
+.IP " 1." 4
+RFC 3999
+.RS 4
+\%https://www.ietf.org/rfc/rfc3339
+.RE
+.IP " 2." 4
+NFKC
+.RS 4
+\%https://unicode.org/reports/tr15/
+.RE
+.IP " 3." 4
+Alphabetic Presentation Forms block
+.RS 4
+\%https://unicode.org/charts/PDF/UFB00.pdf
+.RE
+.IP " 4." 4
+especifica\(,c\(~ao OpenMP API
+.RS 4
+\%https://www.openmp.org/specifications/
+.RE
+.IP " 5." 4
+Sintaxe de formata\(,c\(~ao de strings de Python
+.RS 4
+\%https://docs.python.org/2/library/string.html#format-string-syntax
+.RE
+.IP " 6." 4
+Acompanhamento de problemas
+.RS 4
+\%https://github.com/jwilk/pdf2djvu/issues
+.RE
+.IP " 7." 4
+a lista de mail
+.RS 4
+\%https://groups.io/g/pdf2djvu
+.RE

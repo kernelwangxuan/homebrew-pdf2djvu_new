@@ -1,0 +1,715 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE refentry PUBLIC '-//OASIS//DTD DocBook XML V4.5//EN' 'http://www.docbook.org/xml/4.5/docbookx.dtd'
+[
+    <!ENTITY p 'pdf2djvu'>
+    <!ENTITY version '0.9.19'>
+]>
+
+<refentry lang='pl'>
+
+<refentryinfo>
+    <title>podręcznik &p;</title>
+<productname>&p;</productname> <author> <firstname>Jakub</firstname>
+<surname>Wilk</surname> <email>jwilk@jwilk.net</email> </author></refentryinfo>
+
+<refmeta>
+    <refentrytitle>&p;</refentrytitle>
+    <manvolnum>1</manvolnum>
+    <refmiscinfo class='version'>&version;</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+    <refname>&p;</refname>
+    <refpurpose>tworzy pliki DjVu z plików PDF</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+    <cmdsynopsis>
+<command>&p;</command> <arg choice='opt'> <group choice='req'> <arg
+choice='plain'><option>-o</option></arg> <arg
+choice='plain'><option>--output</option></arg> </group> <arg
+choice='plain'><replaceable>plik-wyjściowy-djvu</replaceable></arg> </arg>
+<arg choice='opt' rep='repeat'><replaceable>opcja</replaceable></arg> <arg
+choice='plain' rep='repeat'><replaceable>plik-pdf</replaceable></arg></cmdsynopsis>
+    <cmdsynopsis>
+<command>&p;</command> <arg choice='plain'> <group choice='req'> <arg
+choice='plain'><option>-i</option></arg> <arg
+choice='plain'><option>--indirect</option></arg> </group> <arg
+choice='plain'><replaceable>plik-indeksowy-djvu</replaceable></arg> </arg>
+<arg choice='opt' rep='repeat'><replaceable>opcja</replaceable></arg> <arg
+choice='plain' rep='repeat'><replaceable>plik-pdf</replaceable></arg></cmdsynopsis>
+    <cmdsynopsis>
+<command>&p;</command> <group choice='req'> <arg
+choice='plain'><option>--version</option></arg> <arg
+choice='plain'><option>--help</option></arg> <arg
+choice='plain'><option>-h</option></arg> </group></cmdsynopsis>
+</refsynopsisdiv>
+
+<refsection>
+    <title>Opis</title>
+    <para>
+        Program ten tworzy plik DjVu na podstawie jednego lub więcej plików w
+formacie Portable Document Format.
+    </para>
+</refsection>
+
+<refsection>
+    <title>Opcje</title>
+    <para>
+        <command>&p;</command> przyjmuje następujące opcje:
+    </para>
+    <refsection>
+        <title>Typ dokumentu, nazwy plików</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-o</option></term>
+            <term><option>--output=<filename><replaceable>plik-wyjściowy-djvu</replaceable></filename></option></term>
+            <listitem>
+                <para>
+                    Utwórz spakowany dokument wielostronicowy. Zapisz wynik do
+<filename><replaceable>wyjściowego-pliku-djvu</replaceable></filename>
+zamiast na standardowe wyjście.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-i</option></term>
+            <term><option>--indirect=<filename><replaceable>indeksowy-plik-djvu</replaceable></filename></option></term>
+            <listitem>
+                <para>
+                    Utwórz rozdzielony dokument wielostronicowy. Jako nazwy pliku indeksowego
+użyj <filename><replaceable>pliku-indeksowego-djvu</replaceable></filename>;
+pliki składowe umieść w tym samym katalogu. Katalog musi istnieć z prawami
+do zapisu.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-id-template=<replaceable>szablon</replaceable></option></term>
+            <listitem>
+                <para>
+                    Określa schemat nazewnictwa identyfikatorów stron.  Opis języka szablonów
+znajduje się w rozdziale <quote><link linkend='template-language'
+endterm='template-language.title'/></quote>.
+                </para>
+                <para>
+                    Domyślny szablon to <quote><literal>p{page:04*}.djvu</literal></quote>.
+                </para>
+                <para>
+                    Aby umożliwić przenośność, identyfikatory stron:
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                muszą składać się tylko z małych liter ASCII, cyfr, znaków
+<literal>_</literal>, <literal>+</literal>, <literal>-</literal> i kropki,
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                nie mogą zaczynać się od znaku <literal>+</literal>, <literal>-</literal>
+ani kropki,
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                nie mogą zawierać dwóch kropek z rzędu,
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                muszą kończyć się rozszerzeniem <literal>.djvu</literal> lub
+<literal>.djv</literal>.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-id-prefix=<replaceable>prefiks</replaceable></option></term>
+            <listitem>
+                <para>
+                    Równoważność
+<quote><literal>--page-id-template=<replaceable>prefiks</replaceable>{page:04*}.djvu</literal></quote>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-title-template=<replaceable>szablon</replaceable></option></term>
+            <listitem>
+                <para>
+                    Określa schemat tytułów stron.  Opis języka szablonów znajduje się w
+rozdziale <quote><link linkend='template-language'
+endterm='template-language.title'/></quote>.
+                </para>
+                <para>
+                    Domyślny szablon to <quote><literal>{label}</literal></quote>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-page-titles</option></term>
+            <listitem>
+                <para>
+                    Nie ustawiaj tytułów stron.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Rozdzielczość, wielkość strony</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-d</option></term>
+            <term><option>--dpi=<replaceable>rozdzielczość</replaceable></option></term>
+            <listitem>
+                <para>
+                    Określa, że pożądaną rozdzielczością jest
+<replaceable>rozdzielczość</replaceable> punktów na cal. Domyślną wartością
+jest 300 dpi. Dopuszczalny zakres to: 72 ≤
+<replaceable>rozdzielczość</replaceable> ≤ 6000.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--media-box</option></term>
+            <listitem>
+                <para>
+                    Do określenia rozmiaru strony użyj
+<firstterm>MediaBox</firstterm>. Domyślnie używane jest
+<firstterm>CropBox</firstterm>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--page-size=<replaceable>szerokość</replaceable>x<replaceable>wysokość</replaceable></option></term>
+            <listitem>
+                <para>
+                    Określa, że preferowanym rozmiarem strony jest
+<replaceable>szerokość</replaceable> pikseli ×
+<replaceable>wysokość</replaceable> pikseli. Faktyczny rozmiar strony może
+zostać zmieniony, by zachować proporcje obrazu i wymogi DjVu
+dot. rozdzielczości. (Ta opcja ma pierwszeństwo nad
+<option>-d</option>/<option>--dpi</option>.)
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--guess-dpi</option></term>
+            <listitem>
+                <para>
+                    Spróbuj odgadnąć pierwotną rozdzielczość poprzez ogląd osadzonych
+obrazów. Używać ostrożnie.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Jakość obrazu</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>--bg-slices=<replaceable>n</replaceable>+<replaceable>…</replaceable>+<replaceable>n</replaceable></option></term>
+            <term><option>--bg-slices=<replaceable>n</replaceable>,<replaceable>…</replaceable>,<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Określa jakość kompresji warstwy tła IW44. Opcja ta jest podobna do opcji
+<option>-slice</option> programu <command>c44</command>. Szczegóły znajdują
+się w podręczniku <citerefentry><refentrytitle>c44</refentrytitle>
+<manvolnum>1</manvolnum> </citerefentry>. Domyślną wartością jest
+<literal>72+11+10+10</literal>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--bg-subsample=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Określa współczynnik podpróbkowania tła. Domyślną wartością jest
+3. Dopuszczalne wartości to liczby całkowite od 1 do 12 włącznie.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=default</option></term>
+            <listitem>
+                <para>
+                    Staraj zachować się wszystkie kolory pierwszego planu. Tak jest domyślnie.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=web</option></term>
+            <listitem>
+                <para>
+                    Zredukuj kolory pierwszego planu do palety WWW (216 kolorów). Ta opcja nie
+jest zalecana.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Użyj GraphicsMagicka do zredukowania do <replaceable>n</replaceable> liczby
+różnych kolorów na pierwszym planie. Dopuszczalne wartości to liczby
+całkowite od 1 do 4080. Ta opcja nie jest zalecana.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--fg-colors=black</option></term>
+            <listitem>
+                <para>
+                    Odrzuć informacje o kolorach pierwszego planu.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--monochrome</option></term>
+            <listitem>
+                <para>
+                    Rastruj strony jako dwukolorowe bitmapy. W takim wypadku opcje
+<option>--bg-<replaceable>…</replaceable></option> i
+<option>--fg-<replaceable>…</replaceable></option> nie są respektowane.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--loss-level=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    <!-- https://github.com/jwilk/pdf2djvu/issues/86 -->
+Określa agresywność kompresji stratnej. Domyślną wartością jest 0 (kompresja
+bezstratna). Dopuszczalne wartości to liczby całkowite od 0 do 200
+włącznie. Opcja ta jest podobna do opcji <option>-losslevel</option>
+programu <command>cjb2</command>; szczegóły znajdują się w podręczniku
+<citerefentry> <refentrytitle>cjb2</refentrytitle> <manvolnum>1</manvolnum>
+</citerefentry> .  Opcja ta może być używana tylko razem z opcją
+<option>--monochrome</option>.
+                    
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--lossy</option></term>
+            <listitem>
+                <para>
+                    Synonim <option>--loss-level=100</option>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--anti-alias</option></term>
+            <listitem>
+                <para>
+                    Włącz antyaliasing fontów i grafiki wektorowej. Ta opcja nie jest zalecana.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Wyodrębnianie</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>--no-metadata</option></term>
+            <listitem>
+                <para>
+                    Nie wyodrębniaj metadanych.
+                </para>
+                <para>
+                    Domyślnie:
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                Wyodrębniane są następujące hasła słownika informacji o dokumencie:
+<literal>Title</literal>, <literal>Author</literal>,
+<literal>Subject</literal>, <literal>Creator</literal>,
+<literal>Producer</literal>, <literal>CreationDate</literal>,
+<literal>ModDate</literal>.  Zapisy daty i czasu są formatowane wg <ulink
+url='https://www.ietf.org/rfc/rfc3339'>RFC 3999</ulink>, z datą i czasem
+oddzielonymi pojedynczą spacją.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Metadane XMP są wyodrębniane (lub tworzone) i odpowiednio aktualizowane.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <note>
+                    <para>
+                        W przypadku wielu dokumentów wejściowych, tylko metadane pierwszego z nich
+są brane pod uwagę.
+                    </para>
+                </note>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--verbatim-metadata</option></term>
+            <listitem>
+                <para>
+                    Zachowaj oryginalne metadane bez zmian.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-outline</option></term>
+            <listitem>
+                <para>
+                    Nie wyodrębniaj konspektu dokumentu.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--hyperlinks=border-avis</option></term>
+            <listitem>
+                <para>
+                    Spraw, by ramki hiperłączy były zawsze widoczne.
+                </para>
+                <para>
+                    Domyślnie ramka hiperłącza jest widoczna tylko gdy nad nim znajduje się
+kursor myszki.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--hyperlinks=#<replaceable>RRGGBB</replaceable></option></term>
+            <listitem>
+                <para>
+                    Wymuś określony kolor ramki hiperłączy.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-hyperlinks</option></term>
+            <term><option>--hyperlinks=none</option></term>
+            <listitem>
+                <para>
+                    Nie wyodrębniaj hiperłączy.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-text</option></term>
+            <listitem>
+                <para>
+                    Nie wyodrębniaj tekstu.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry><term>
+            <option>--words</option></term>
+            <listitem>
+                <para>
+                    Wyodrębniaj tekst. Zapisz położenia każdego słowa. Tak jest domyślnie.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--lines</option></term>
+            <listitem>
+                <para>
+                    Wyodrębniaj tekst. Zapisz położenia każdej linii, a nie każdego słowa.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--crop-text</option></term>
+            <listitem>
+                <para>
+                    Nie wyodrębniaj tekstu, który znajduje się poza granicami strony.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--no-nfkc</option></term>
+            <listitem>
+                <para>
+                    Nie stosuj normalizacji <ulink
+url='https://unicode.org/reports/tr15/'>NFKC</ulink>, z wyjątkiem znaków z
+<ulink url='https://unicode.org/charts/PDF/UFB00.pdf'>bloku Alfabetycznych
+Form Prezentacyjnych</ulink> (U+FB00–U+FB4F), które są normalizowane
+bezwarunkowo.
+                </para>
+                <para>
+                    Domyślnie normalizacja NFKC stosowana jest do wszystkich znaków.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--filter-text=<replaceable>linia-poleceń</replaceable></option></term>
+            <listitem>
+                <para>
+                    Przefiltruj tekst przez <replaceable>linię-poleceń</replaceable>. Dany filtr
+musi zachowywać białe znaki, znaki kontrole i cyfry dziesiętne.
+                </para>
+                <para>
+                    Opcja ta implikuje <option>--no-nfkc</option>.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-p</option></term>
+            <term><option>--pages=<replaceable>zakres stron</replaceable></option></term>
+            <listitem>
+                <para>
+                    Określa strony przeznaczone do
+konwersji. <replaceable>zakres-stron</replaceable> jest oddzielaną
+przecinkami listą podzakresów. Każdy podzakres to albo pojedyncza strona
+(np. <literal>17</literal>), albo ciągły zakres stron
+(np. <literal>37-42</literal>). Numery stron nie mogą się powtarzać. Strony
+numerowane są od 1.
+                </para>
+                <para>
+                    Domyślnie konwertowane są wszystkie strony.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Wydajność</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-j</option></term>
+            <term><option>--jobs=<replaceable>n</replaceable></option></term>
+            <listitem>
+                <para>
+                    Użyj <replaceable>n</replaceable> wątków do przeprowadzenia
+konwersji. Domyślnie używany jest jeden wątek.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-j0</option></term>
+            <term><option>--jobs=0</option></term>
+            <listitem>
+                <para>
+                    Określ liczbę wątków używanych do przeprowadzenia konwersji automatycznie.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Gadatliwość, pomoc</title>
+        <variablelist>
+        <varlistentry>
+            <term><option>-v</option></term>
+            <term><option>--verbose</option></term>
+            <listitem>
+                <para>
+                    Wyświetlaj więcej komunikatów informacyjnych podczas konwersji pliku.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-q</option></term>
+            <term><option>--quiet</option></term>
+            <listitem>
+                <para>
+                    Nie wyświetlaj komunikatów informacyjnych podczas konwersji pliku.
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>--version</option></term>
+            <listitem>
+                <para>Wyświetl informację o wersji i wyjdź.</para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><option>-h</option></term>
+            <term><option>--help</option></term>
+            <listitem>
+                <para>Wyświetl pomoc i wyjdź.</para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Środowisko</title>
+    <para>
+        Następujące zmienne środowiskowe mają wpływ na działanie
+<command>&p;</command> w systemach uniksowych: <variablelist>
+        <varlistentry>
+            <term><varname>OMP_<replaceable>*</replaceable></varname></term>
+            <listitem>
+            <para>
+                Zachowanie programu pod względem współbieżności można kontrolować za pomocą
+kilku zmiennych środowiskowych. Szczegóły opisane są w <ulink
+url='https://www.openmp.org/specifications/'>specyfikacji API
+OpenMP</ulink>.
+            </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term><varname>TMPDIR</varname></term>
+            
+            <!-- As per IEEE Std 1003.1, 2004 Edition, “8.3 Other Environment Variables”:
+            https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap08.html#tag_08_03
+            -->
+<listitem>
+                <para>
+                    <command>&p;</command> intensywnie używa plików tymczasowych. Są one
+składowane w katalogu określonym przez tę zmienną. Domyślną wartością
+jest<filename>/tmp</filename>.
+                </para>
+            </listitem>
+        </varlistentry>
+        </variablelist>
+    </para>
+</refsection>
+
+<refsection id='template-language'>
+    <title id='template-language.title'>Język szablonów</title>
+    <refsection>
+        <title>Składnia szablonów</title>
+        <para>
+            Język szablonów jest z grubsza wzorowany na <ulink
+url='https://docs.python.org/2/library/string.html#format-string-syntax'>składni
+formatowania napisów w języku Python</ulink>.
+        </para>
+        <para>
+            Szablon to kawałek tekstu zawierający <firstterm>pola</firstterm>, otoczone
+klamrami <literal>{</literal><literal>}</literal>. Kiedy szablon jest
+wyliczany, pola zastępowane są odpowiednio sformatowanymi
+wartościami. Ponadto ciąg <literal>{{</literal> jest zastępowany pojedynczym
+<literal>{</literal> a ciąg <literal>}}</literal> — pojedynczym
+<literal>}</literal>.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Składnia pól</title>
+        <para>
+            Każde pole składa się z nazwy zmiennej, po której opcjonalnie następuje
+przesunięcie, po którym opcjonalnie następuje specyfikacja formatu.
+        </para>
+        <para>
+            Przesunięcie jest liczbą całkowitą ze znakiem (tj. zaczynającą się znakiem
+<literal>+</literal> lub <literal>-</literal>).
+        </para>
+        <para>
+            Specyfikacja formatu składa się z dwukropka, po którym następuje
+specyfikacja szerokości.
+        </para>
+        <para>
+            Specyfikacja szerokości jest liczbą całkowitą definiującą minimalną
+szerokość pola. W przypadku braku definicji, szerokość zostanie określona na
+podstawie treści. Poprzedzenie specyfikacji szerokości zerem
+(<literal>0</literal>) powoduje dopełnianie zerami.
+        </para>
+        <para>
+            Po specyfikacji szerokości może opcjonalne nastąpić znak gwiazdki
+(<literal>*</literal>), który zwiększa minimalną szerokość pola do
+największej możliwej długości zawartości zmiennej.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Dostępne zmienne</title>
+        <variablelist>
+            <varlistentry>
+                <term><varname>dpage</varname></term>
+                <listitem>
+                    <para>Numer strony w dokumencie DjVu.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><varname>page</varname></term>
+                <term><varname>spage</varname></term>
+                <listitem>
+                    <para>Numer strony w dokumencie PDF.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><varname>label</varname></term>
+                <listitem>
+                    <para>Etykieta strony (logiczny numer strony) w dokumencie PDF.</para>
+                    <para>Ta zmienna jest dostępna tylko w tytułach stron.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Szczegóły implementacji</title>
+    <refsection>
+        <title>Algorytm separacji warstw</title>
+        <para>
+            Jeżeli nie użyto opcji <option>--monochrome</option>, &p; używa
+następującego naiwnego algorytmu separacji warstw: <orderedlist>
+                <listitem>
+                    <para>
+                        Dla każdej strony wykonaj co następuje: <orderedlist>
+                            <listitem>
+                                <para>
+                                    Zrastruj stronę do mapy pikseli w zwykły sposób.
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Zrastruj stronę do innej mapy pikseli, z pominięciem następujących elementów
+strony:
+                                    <itemizedlist>
+                                        <listitem><para>tekst,</para></listitem>
+                                        <listitem><para>obrazy rastrowe o głębokości 1 bit na piksel,</para></listitem>
+                                        <listitem><para>elementy wektorowe (oprócz wypełnień o dużej powierzchni).</para></listitem>
+                                    </itemizedlist>
+                                </para>
+                            </listitem>
+                            <listitem>
+                                <para>
+                                    Porównaj obie mapy pikseli, piksel po pikselu: <orderedlist>
+                                        <listitem>
+                                            <para>
+                                                Jeżeli kolory się zgadzają, zaklasyfikuj piksel jako część warstwy tła.
+                                            </para>
+                                        </listitem>
+                                        <listitem>
+                                            <para>
+                                                W przeciwnym wypadku, zaklasyfikuj piksel jako część pierwszego planu.
+                                            </para>
+                                        </listitem>
+                                    </orderedlist>
+                                </para>
+                            </listitem>
+                        </orderedlist>
+                    </para>
+                </listitem>
+            </orderedlist>
+        </para>
+    </refsection>
+</refsection>
+
+<refsection>
+    <title>Raporty o błędach</title>
+    <para>
+        Błędy znalezione w &p; proszę zgłaszać w <ulink
+url='https://github.com/jwilk/pdf2djvu/issues'>systemie śledzenia
+problemów</ulink> lub na <ulink url='https://groups.io/g/pdf2djvu'>liście
+dyskusyjnej</ulink>.
+    </para>
+</refsection>
+
+<refsection>
+    <title>Zobacz też</title>
+    <para>
+        <citerefentry> <refentrytitle>djvu</refentrytitle> <manvolnum>1</manvolnum>
+</citerefentry>, <citerefentry> <refentrytitle>djvudigital</refentrytitle>
+<manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+<refentrytitle>csepdjvu</refentrytitle> <manvolnum>1</manvolnum>
+</citerefentry>
+    </para>
+</refsection>
+
+</refentry>
+
+
+<!-- vim:set ts=4 sts=4 sw=4 tw=120 et: -->

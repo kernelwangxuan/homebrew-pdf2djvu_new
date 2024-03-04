@@ -1,0 +1,13 @@
+URW Type 1 fonts
+================
+Copyright © 1999 (URW)++ Design & Development
+Copyright © 2001-2005 Valek Filippov
+
+The font files are distributed under the GNU General Public License.
+
+As a special exception, permission is granted to include this font program in a
+Postscript or PDF file that consists of a document that contains text to be
+displayed or printed using this font, regardless of the conditions or license
+applying to the document itself.
+
+.. vim:ft=rst

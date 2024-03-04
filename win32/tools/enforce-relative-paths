@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+
+# Copyright © 2017-2022 Jakub Wilk <jwilk@jwilk.net>
+#
+# This file is part of pdf2djvu.
+#
+# pdf2djvu is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# pdf2djvu is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+use strict;
+use warnings;
+
+use Cwd qw(getcwd realpath);
+use File::Spec qw();
+use FindBin qw();
+
+my $here = $FindBin::Bin;
+my $root = realpath("$here/..");
+
+sub relativize
+{
+    my ($path) = @_;
+    if ($path =~ m{\A\Q$root\E/}) {
+        $path = File::Spec->abs2rel($path)
+    } elsif ($path =~ /\A@/) {
+        $path = substr($path, 1);
+        my $tmppath = "$path.tmp";
+        open(my $fh, '<', $path) or die "$path: $!";
+        {
+            local $/ = undef;
+            $_ = <$fh>;
+            s{(?:\A|[\s"'])(?:-I)?\K(\Q$root\E)(?=/|\s|\z)}{File::Spec->abs2rel($1)}eg;
+        }
+        close($fh);
+        open($fh, '>', "$path.tmp") or die "$path.tmp: $!";
+        print {$fh} $_;
+        close($fh);
+        rename("$path.tmp", "$path.rel") or die "$path.rel: $!";
+        $path = "\@$path.rel";
+    }
+    return $path;
+}
+
+my @argv = map { relativize($_); } @ARGV;
+exec { $argv[0] } @argv or die;
+
+# vim:ts=4 sts=4 sw=4 et

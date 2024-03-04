@@ -1,0 +1,80 @@
+/* autoconf.hh.in.  Generated from configure.ac by autoheader.  */
+
+/* Define to the version of DjVuLibre */
+#undef DJVULIBRE_VERSION_STRING
+
+/* Define to 1 if translation of program messages to the user's native
+   language is requested. */
+#undef ENABLE_NLS
+
+/* Define to 1 if you have the Mac OS X function
+   CFLocaleCopyPreferredLanguages in the CoreFoundation framework. */
+#undef HAVE_CFLOCALECOPYPREFERREDLANGUAGES
+
+/* Define to 1 if you have the Mac OS X function CFPreferencesCopyAppValue in
+   the CoreFoundation framework. */
+#undef HAVE_CFPREFERENCESCOPYAPPVALUE
+
+/* Define if you have the DCE uuid_*() functions */
+#undef HAVE_DCE_UUID
+
+/* Define if the GNU dcgettext() function is already present or preinstalled.
+   */
+#undef HAVE_DCGETTEXT
+
+/* Define if the GNU gettext() function is already present or preinstalled. */
+#undef HAVE_GETTEXT
+
+/* Define if you have GraphicsMagick++ installed */
+#undef HAVE_GRAPHICSMAGICK
+
+/* Define if you have the iconv() function and it works. */
+#undef HAVE_ICONV
+
+/* Define if you have the libuuid library installed */
+#undef HAVE_LIBUUID
+
+/* Define to 1 if you have the 'time_t timegm(struct tm *)' function. */
+#undef HAVE_TIMEGM
+
+/* Define if you have the Exiv2 and UUID libraries installed */
+#undef HAVE_XMP
+
+/* Define as const if the declaration of iconv() needs const. */
+#undef ICONV_CONST
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to the version of Poppler, as integer */
+#undef POPPLER_VERSION
+
+/* Define to the version of Poppler */
+#undef POPPLER_VERSION_STRING
+
+/* Define to enable heap profiling (using gperftools) */
+#undef USE_HEAP_PROFILING
+
+/* Define to use MinGW ANSI stdio */
+#undef USE_MINGW_ANSI_STDIO
+
+/* Number of bits in a file offset, on hosts where this is settable. */
+#undef _FILE_OFFSET_BITS
+
+/* Define for large files, on AIX-style hosts. */
+#undef _LARGE_FILES

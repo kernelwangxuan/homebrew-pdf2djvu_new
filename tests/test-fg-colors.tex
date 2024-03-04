@@ -1,0 +1,41 @@
+% Copyright © 2015-2018 Jakub Wilk <jwilk@jwilk.net>
+%
+% This file is part of pdf2djvu.
+%
+% pdf2djvu is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License version 2 as
+% published by the Free Software Foundation.
+%
+% pdf2djvu is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+
+\input common
+
+\pdfpagewidth 260pt
+\pdfpageheight 220pt
+
+\newcount\r
+\newcount\g
+\newcount\b
+\r=11
+\loop
+{
+    \g=11
+    \b=11
+    \loop
+        \pdfliteral{.\the\r}\pdfliteral{.\the\g}\pdfliteral{.\the\b}\pdfliteral{rg} X
+    \advance \g by 5
+    \advance \b by 3
+    \ifnum \g < 100
+    \repeat
+    \endgraf
+}
+\advance \r by 5
+\ifnum \r < 100
+\repeat
+
+\end
+
+% vim:ts=4 sts=4 sw=4 et

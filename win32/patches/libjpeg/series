@@ -1,0 +1,2 @@
+automake-Wno-obsolete.diff
+basetsd.h-conflict.diff

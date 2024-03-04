@@ -1,0 +1,49 @@
+% Copyright © 2009-2018 Jakub Wilk <jwilk@jwilk.net>
+%
+% This file is part of pdf2djvu.
+%
+% pdf2djvu is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License version 2 as
+% published by the Free Software Foundation.
+%
+% pdf2djvu is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+
+\ifx\pdfvariable\undefined
+\else
+\input luatex85.sty
+\pdfvariable suppressoptionalinfo527
+\fi
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+\ifx\pdftrailerid\undefined
+\else
+\pdftrailerid{}
+\pdfsuppressptexinfo15
+\fi
+
+\hoffset -1in
+\voffset -1in
+\parindent 0in
+
+\nopagenumbers
+
+\edef\0{\string\0}%
+\edef\1{\string\1}%
+\edef\2{\string\2}%
+\edef\3{\string\3}%
+
+\def\pdfpageimage#1{
+    \setbox0\hbox{\pdfximage{#1}\pdfrefximage\pdflastximage}%
+    \pdfpagewidth=\wd0
+    \pdfpageheight=\ht0
+    \shipout\box0
+}
+
+\pdfmapline{ptmr8r Times-Roman <8r.enc}
+\font\times=ptmr8r at 12pt
+\times
+
+% vim:ts=4 sts=4 sw=4 et

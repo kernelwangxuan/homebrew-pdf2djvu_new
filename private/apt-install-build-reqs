@@ -1,0 +1,92 @@
+#!/bin/sh
+
+# Copyright © 2015-2021 Jakub Wilk <jwilk@jwilk.net>
+#
+# This file is part of pdf2djvu.
+#
+# pdf2djvu is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# pdf2djvu is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+pkgs_base='
+build-essential
+djvulibre-bin
+libdjvulibre-dev
+libexiv2-dev
+libgraphicsmagick++-dev
+libpoppler-dev
+libpoppler-private-dev
+pkg-config
+uuid-dev
+'
+pkgs_autotools='
+autoconf
+automake
+gettext
+libtool
+'
+pkgs_tests='
+python-nose
+'
+pkgs_prepare_tests='
+fonts-linuxlibertine
+python-pil
+texlive-fonts-recommended
+texlive-luatex
+'
+pkgs_man='
+docbook-xml
+docbook-xsl
+gettext
+libxml2-utils
+po4a
+xsltproc
+'
+pkgs="$pkgs_base"
+
+usage()
+{
+    printf '%s [--vcs] [--tests] [--man]\n' "$0"
+}
+
+args=$(getopt -n "$0" -o 'h' --long 'help,vcs,man,tests' -- "$@")
+if [ $? -ne 0 ]
+then
+    usage >&2
+    exit 1
+fi
+opt_vcs=
+opt_tests=
+opt_man=
+eval set -- "$args"
+while true
+do
+    case "$1" in
+        -h|--help) usage; exit 0;;
+        --vcs) opt_vcs=y; shift;;
+        --tests) opt_tests=y ; shift;;
+        --man) opt_man=y; shift;;
+        --) shift; break;;
+        *) printf '%s: internal error (%s)\n' "$0" "$1" >&2; exit 1;;
+    esac
+done
+
+set -e -u
+
+[ "$opt_tests" ] && pkgs="$pkgs $pkgs_tests"
+[ "$opt_vcs" ] && pkgs="$pkgs $pkgs_autotools"
+[ "$opt_vcs" ] && [ "$opt_tests" ] && pkgs="$pkgs $pkgs_prepare_tests"
+[ "$opt_man" ] && pkgs="$pkgs $pkgs_man"
+
+PS4='# '
+(
+    set -x
+    apt-get install --no-install-recommends $pkgs
+)
+
+# vim:ts=4 sts=4 sw=4 et

@@ -1,0 +1,648 @@
+'\" t
+.\"     Title: pdf2djvu
+.\"    Author: Jakub Wilk <jwilk@jwilk.net>
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 09.08.2022
+.\"    Manual: pdf2djvu Handbuch
+.\"    Source: pdf2djvu 0.9.19
+.\"  Language: German
+.\"
+.TH "PDF2DJVU" "1" "09.08.2022" "pdf2djvu 0\&.9\&.19" "pdf2djvu Handbuch"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+pdf2djvu \- Erzeugt DjVu\-Dateien aus PDF\-Dateien
+.SH "\(:UBERSICHT"
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR [{\fB\-o\fR\ |\ \fB\-\-output\fR}\ \fIAusgabe\-DjVu\-Datei\fR] [\fIOption\fR...] \fIPDF\-Datei\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-i\fR\ |\ \fB\-\-indirect\fR}\ \fIIndex\-DjVu\-Datei\fR  [\fIOption\fR...] \fIPDF\-Datei\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-\-version\fR | \fB\-\-help\fR | \fB\-h\fR}
+.SH "BESCHREIBUNG"
+.PP
+Dieses Programm erzeugt eine DjVu\-Datei aus einer oder mehreren Portable\-Document\-Format\-Dateien\&.
+.SH "OPTIONEN"
+.PP
+\fBpdf2djvu\fR
+akzeptiert die folgenden Optionen:
+.SS "Dokumenttyp, Dateinamen"
+.PP
+\fB\-o\fR, \fB\-\-output=\fR\fB\fIAusgabe\-DjVu\-Datei\fR\fR
+.RS 4
+generiert ein geb\(:undeltes mehrseitiges Dokument; schreibt die Ausgabe in eine
+\fIAusgabe\-DjVu\-Datei\fR
+anstatt auf die Standardausgabe
+.RE
+.PP
+\fB\-i\fR, \fB\-\-indirect=\fR\fB\fIIndex\-DjVu\-Datei\fR\fR
+.RS 4
+erstellt ein indirekt mehrseitiges Dokument; benutzt
+\fIIndex\-DjVu\-Datei\fR
+als Indexdateinamen; legt die Komponentendateien im gleichen Verzeichnis ab\&. Das Verzeichnis muss existieren und beschreibbar sein\&.
+.RE
+.PP
+\fB\-\-page\-id\-template=\fR\fB\fISchablone\fR\fR
+.RS 4
+gibt das Namesschema f\(:ur Seitenbezeichner an\&. Lesen Sie den Abschnitt
+\(BqSCHABLONENSPRACHE\(lq
+f\(:ur die Sprachbeschreibung der Schablone\&.
+.sp
+Die Vorgabeschablone ist
+\(Bqp{page:04*}\&.djvu\(lq\&.
+.sp
+Aus Portierbarkeitsgr\(:unden gilt f\(:ur Seitenbezeichner:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Sie d\(:urfen nur aus kleingeschriebenen ASCII\-Buchstaben, Ziffern,
+_,
++,
+\-
+und Punkten bestehen,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+sie d\(:urfen nicht mit
++,
+\-
+oder einem Punkt beginnen,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+sie d\(:urfen keine zwei aufeinanderfolgenden Punkte enthalten,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+sie m\(:ussen die Dateiendung
+\&.djvu
+oder
+\&.djv
+haben\&.
+.RE
+.sp
+.RE
+.PP
+\fB\-\-page\-id\-prefix=\fR\fB\fIPr\(:afix\fR\fR
+.RS 4
+Entspricht
+\(Bq\-\-page\-id\-template=\fIPr\(:afix\fR{page:04*}\&.djvu\(lq\&.
+.RE
+.PP
+\fB\-\-page\-title\-template=\fR\fB\fISchablone\fR\fR
+.RS 4
+gibt die Schablone f\(:ur Seitentitel an\&. Lesen Sie den Abschnitt
+\(BqSCHABLONENSPRACHE\(lq
+f\(:ur die Sprachbeschreibung der Schablone\&.
+.sp
+Die Vorgabeschablone ist
+\(Bq{label}\(lq\&.
+.RE
+.PP
+\fB\-\-no\-page\-titles\fR
+.RS 4
+setzt keine Seitentitel
+.RE
+.SS "Aufl\(:osung, Seitengr\(:o\(sse"
+.PP
+\fB\-d\fR, \fB\-\-dpi=\fR\fB\fIAufl\(:osung\fR\fR
+.RS 4
+gibt die gew\(:unschte Aufl\(:osung in
+\fIAufl\(:osung\fR
+Punkten pro Zoll an\&. Die Vorgabe ist 300 dpi\&. Der erlaubte Bereich ist: 72 \(<=
+\fIAufl\(:osung\fR
+\(<= 6000\&.
+.RE
+.PP
+\fB\-\-media\-box\fR
+.RS 4
+Benutzen Sie
+MediaBox, um die Seitengr\(:o\(sse festzulegen\&. Standardm\(:a\(ssig wird
+CropBox
+benutzt\&.
+.RE
+.PP
+\fB\-\-page\-size=\fR\fB\fIBreite\fR\fR\fBx\fR\fB\fIH\(:ohe\fR\fR
+.RS 4
+gibt die bevorzugte Seitengr\(:o\(sse als
+\fIBreite\fR
+Bildpunkte x
+\fIH\(:ohe\fR
+Bildpunkte an\&. Die tats\(:achliche Seitengr\(:o\(sse k\(:onnte ver\(:andert werden, um das Seitenverh\(:altnis und die DjVu\-Einschr\(:ankungen f\(:ur die Aufl\(:osung zu ber\(:ucksichtigen\&. (Diese Option hat Vorrang gegen\(:uber
+\fB\-d\fR/\fB\-\-dpi\fR\&.)
+.RE
+.PP
+\fB\-\-guess\-dpi\fR
+.RS 4
+versucht die native Aufl\(:osung durch Untersuchen der eingebetteten Bilder abzusch\(:atzen\&. Verwenden Sie dies mit Vorsicht\&.
+.RE
+.SS "Bildqualit\(:at"
+.PP
+\fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB+\fR\fB\fI\&...\fR\fR\fB+\fR\fB\fIn\fR\fR, \fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB,\fR\fB\fI\&...\fR\fR\fB,\fR\fB\fIn\fR\fR
+.RS 4
+gibt die Kodierungsqualit\(:at f\(:ur die IW44\-Hintergrundebene an\&. Diese Option ist der Option
+\fB\-slice\fR
+des Befehls
+\fBc44\fR
+\(:ahnlich\&. Sehen Sie die Handbuchseite
+\fBc44\fR(1)
+ein, um Einzelheiten zu erfahren\&. Die Vorgabe ist
+72+11+10+10\&.
+.RE
+.PP
+\fB\-\-bg\-subsample=\fR\fB\fIn\fR\fR
+.RS 4
+gibt das Verh\(:altnis der Hintergrund\-Unterabtastung (subsampling) an\&. Vorgabe ist 3\&. G\(:ultige Werte sind Ganzahlen von 1 bis einschlie\(sslich 12\&.
+.RE
+.PP
+\fB\-\-fg\-colors=default\fR
+.RS 4
+versucht, alle Vordergrundebenenfarben zu bewahren\&. Dies ist die Vorgabe\&.
+.RE
+.PP
+\fB\-\-fg\-colors=web\fR
+.RS 4
+reduziert Vordergrundebenenfarben auf die Web\-Palette (216 Farben)\&. Diese Option wird nicht empfohlen\&.
+.RE
+.PP
+\fB\-\-fg\-colors=\fR\fB\fIn\fR\fR
+.RS 4
+benutzt GraphicsMagick, um die Anzahl verschiedener Farben in der Vordergrundebene auf
+\fIn\fR
+zu reduzieren\&. G\(:ultige Werte sind Ganzzahlen zwischen 1 und 4080\&. Diese Option wird nicht empfohlen\&.
+.RE
+.PP
+\fB\-\-fg\-colors=black\fR
+.RS 4
+jede Farbinformation der Vordergrundebene verwerfen
+.RE
+.PP
+\fB\-\-monochrome\fR
+.RS 4
+Seiten als einfarbige Bitmaps berechnen und ausgeben\&. Mit dieser Option werden die Optionen
+\fB\-\-bg\-\fR\fB\fI\&...\fR\fR
+und
+\fB\-\-fg\-\fR\fB\fI\&...\fR\fR
+nicht ber\(:ucksichtigt\&.
+.RE
+.PP
+\fB\-\-loss\-level=\fR\fB\fIn\fR\fR
+.RS 4
+gibt die Aggressivit\(:at der verlustbehafteten Komprimierung an\&. Vorgabe ist 0 (verlustfrei)\&. G\(:ultige Werte sind Ganzahlen von 0 bis einschlie\(sslich 200\&. Diese Option \(:ahnelt der Option
+\fB\-losslevel\fR
+von
+\fBcjb2\fR\&. Sehen Sie die Handbuchseite
+\fBcjb2\fR(1)
+ein, um weitere Einzelheiten zu erfahren\&. Diese Option kann nur benutzt werden, falls auch die Option
+\fB\-\-monochrome\fR
+aktiviert ist\&.
+.RE
+.PP
+\fB\-\-lossy\fR
+.RS 4
+Synonym f\(:ur
+\fB\-\-loss\-level=100\fR
+.RE
+.PP
+\fB\-\-anti\-alias\fR
+.RS 4
+aktiviert Schrift\- und Vektor\-Kantengl\(:attung\&. Diese Option wird nicht empfohlen\&.
+.RE
+.SS "Auszug"
+.PP
+\fB\-\-no\-metadata\fR
+.RS 4
+die Metadaten nicht herausziehen
+.sp
+Standardm\(:a\(ssig:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Die folgenden Eintr\(:age des Dokumentinformations\-W\(:orterbuchs werden extrahiert:
+Title,
+Author,
+Subject,
+Creator,
+Producer,
+CreationDate,
+ModDate\&. Zeitstempel werden entspechend
+\m[blue]\fBRFC 3999\fR\m[]\&\s-2\u[1]\d\s+2
+mit Datums\- und Zeitbestandteilen, getrennt durch ein einzelnes Leerzeichen, formatiert\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Die XMP\-Metadaten werden extrahiert (oder erzeugt) und dementsprechend aktualisiert\&.
+.RE
+.sp
+.if n \{\
+.sp
+.\}
+.RS 4
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBAnmerkung\fR
+.ps -1
+.br
+Wenn mehrere Eingabedokumente ausgew\(:ahlt wurden, werden nur Metadaten des ersten Dokumentes ber\(:ucksichtigt\&.
+.sp .5v
+.RE
+.RE
+.PP
+\fB\-\-verbatim\-metadata\fR
+.RS 4
+die Original\-Metadaten intakt lassen
+.RE
+.PP
+\fB\-\-no\-outline\fR
+.RS 4
+die Dokumenten\(:ubersicht nicht extrahieren
+.RE
+.PP
+\fB\-\-hyperlinks=border\-avis\fR
+.RS 4
+R\(:ander von Querverweisen immer sichtbar machen
+.sp
+Standardm\(:a\(ssig sind die R\(:ander eines Querverweises nur sichtbar, wenn die Maus dar\(:uber steht\&.
+.RE
+.PP
+\fB\-\-hyperlinks=#\fR\fB\fIRRGGBB\fR\fR
+.RS 4
+die angegebene Randfarbe f\(:ur Querverweise erzwingen
+.RE
+.PP
+\fB\-\-no\-hyperlinks\fR, \fB\-\-hyperlinks=none\fR
+.RS 4
+Querverweise nicht extrahieren
+.RE
+.PP
+\fB\-\-no\-text\fR
+.RS 4
+den Text nicht extrahieren
+.RE
+.PP
+\fB\-\-words\fR
+.RS 4
+den Text extrahieren; die Position jedes Wortes aufzeichnen\&. Dies ist die Vorgabe\&.
+.RE
+.PP
+\fB\-\-lines\fR
+.RS 4
+den Text extrahieren; die Position jeder Zeile statt jedes Wortes aufzeichnen
+.RE
+.PP
+\fB\-\-crop\-text\fR
+.RS 4
+keinen Text au\(sserhalb des Seitenrands extrahieren
+.RE
+.PP
+\fB\-\-no\-nfkc\fR
+.RS 4
+Wenden Sie
+\m[blue]\fBNFKC\fR\m[]\&\s-2\u[2]\d\s+2
+nicht an, um den Text in Normalform zu bringen, au\(sser f\(:ur Zeichen des
+\m[blue]\fBUnicodeblock Alphabetische Pr\(:asentationsformen\fR\m[]\&\s-2\u[3]\d\s+2
+(U+FB00\(enU+FB4F), die bedingungslos normalisiert werden\&.
+.sp
+Standardm\(:a\(ssig wird NFKC\-Normalisierung auf alle Zeichen angewandt\&.
+.RE
+.PP
+\fB\-\-filter\-text=\fR\fB\fIBefehlszeile\fR\fR
+.RS 4
+den Text \(:uber die
+\fIBefehlszeile\fR
+filtern\&. Der bereitgestellte Filter muss Leerr\(:aume, Steuerzeichen und dezimale Ziffern bewahren\&.
+.sp
+Diese Option impliziert
+\fB\-\-no\-nfkc\fR\&.
+.RE
+.PP
+\fB\-p\fR, \fB\-\-pages=\fR\fB\fISeitenbereich\fR\fR
+.RS 4
+gibt die Seiten an, die umgewandelt werden\&.
+\fISeitenbereich\fR
+ist eine durch Kommas getrennte Liste von Unterbereichen\&. Jeder Unterbereich ist entweder eine einzelne Seite (z\&.B\&.
+17) oder ein Bereich zusammenh\(:angender Seiten (z\&.B\&.
+37\-42)\&. Doppelte Seitennummmern sind nicht erlaubt\&. Seiten werde mit 1 beginnend nummeriert\&.
+.sp
+Standardm\(:a\(ssig werden alle Seiten umgewandelt\&.
+.RE
+.SS "Leistungsf\(:ahigkeit"
+.PP
+\fB\-j\fR, \fB\-\-jobs=\fR\fB\fIn\fR\fR
+.RS 4
+benutzt
+\fIn\fR
+Threads, um die Umwandlung durchzuf\(:uhren\&. Standardm\(:a\(ssig wird ein Thread benutzt\&.
+.RE
+.PP
+\fB\-j0\fR, \fB\-\-jobs=0\fR
+.RS 4
+legt automatisch fest, wieviele Threads f\(:ur die Umwandlung benutzt werden
+.RE
+.SS "Detailgrad, Hilfe"
+.PP
+\fB\-v\fR, \fB\-\-verbose\fR
+.RS 4
+w\(:ahrend der Umwandlung der Datei weitere informative Nachrichten anzeigen
+.RE
+.PP
+\fB\-q\fR, \fB\-\-quiet\fR
+.RS 4
+w\(:ahrend der Umwandlung der Datei keine informativen Nachrichten anzeigen
+.RE
+.PP
+\fB\-\-version\fR
+.RS 4
+die Versionsinformationen ausgeben und beenden
+.RE
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Hilfe anzeigen und beenden
+.RE
+.SH "UMGEBUNG"
+.PP
+Die folgenden Umgebungsvariablen beeinflussen
+\fBpdf2djvu\fR
+auf Unix\-Systemen:
+.PP
+\fIOMP_\fR\fI\fI*\fR\fR
+.RS 4
+Einzelheiten des Verhaltens zur Laufzeit, die Parallelisierung ber\(:ucksichtigen, k\(:onnen durch mehrere Umgebungsvariablen gesteuert werden\&. Bitte sehen Sie in die
+\m[blue]\fBOpenMP\-API\-Spezifikation\fR\m[]\&\s-2\u[4]\d\s+2, um Einzelheiten zu erfahren\&.
+.RE
+.PP
+\fITMPDIR\fR
+.RS 4
+\fBpdf2djvu\fR
+macht stark von tempor\(:aren Dateien Gebrauch\&. Es wird sie in dem durch diese Variable angegebenen Verzeichnis speichern\&. Vorgabe ist
+/tmp\&.
+.RE
+.SH "SCHABLONENSPRACHE"
+.SS "Schablonensyntax"
+.PP
+Die Schablonensprache ist ungef\(:ahr wie die
+\m[blue]\fBPhyton\-Zeichenkettenformatierungssyntax\fR\m[]\&\s-2\u[5]\d\s+2
+aufgebaut\&.
+.PP
+Eine Schablone ist ein Textteil, der
+Felder
+enth\(:alt, die von geschweiften Klammern
+{}
+eingeschlossen werden\&. Felder werden durch entsprechend formatierte Werte ersetzt, wenn die Schablone ausgewertet wird\&. Au\(sserdem werden
+{{
+durch eine einzelne
+{
+und
+}}
+durch eine einzelne
+}
+ersetzt\&.
+.SS "Feldsyntax"
+.PP
+Jedes Feld besteht aus einem Variablennamen, wahlweise gefolgt von einer Verschiebung, der wiederum wahlweise eine Formatangabe folgt\&.
+.PP
+Die Verschiebung ist eine vorzeichenbehaftete (d\&.h\&. sie beginnt mit einem
++
+oder
+\-) Ganzzahl\&.
+.PP
+Die Formatangabe besteht aus einem Doppelpunkt gefolgt von einer Breitenangabe\&.
+.PP
+Die Breitenangabe ist eine dezimale Ganzzahl, die die Mindestbreite eines Feldes angibt\&. Falls sie nicht angegeben wird, wird die Feldbreite durch den Inhalt bestimmt\&. Wird der Breitenangabe eine Null (0) vorangestellt, wird Auff\(:ullen mit Nullen aktiviert\&.
+.PP
+Der Breitenangabe folgt wahlweise ein Sternchen (*), das die Mindestbreite des Feldes auf die Breite des gr\(:o\(sstm\(:oglichen Inhalts der Variable erh\(:oht\&.
+.SS "Verf\(:ugbare Variablen"
+.PP
+\fIdpage\fR
+.RS 4
+Seitenzahl im DjVu\-Dokument
+.RE
+.PP
+\fIpage\fR, \fIspage\fR
+.RS 4
+Seitenzahl im PDF\-Dokument
+.RE
+.PP
+\fIlabel\fR
+.RS 4
+Seitebeschriftung (logische Seitennummer) im PDF\-Dokument
+.sp
+Diese Variable ist nur f\(:ur Seitentitel verf\(:ugbar\&.
+.RE
+.SH "IMPLEMENTIERUNGSEINZELHEITEN"
+.SS "Ebenen\-Aufteilungsalgorithmus"
+.PP
+Au\(sser wenn die Option
+\fB\-\-monochrome\fR
+aktiviert ist, benutzt pdf2djvu den folgenden naiven Ebenen\-Aufteilungsalgorithmus:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+f\(:ur jede Seite das Folgende tun:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+die Seite auf die \(:ubliche Weise in eine Rastergrafik rastern
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+die Seite in eine Rastergrafik rastern und die folgenden Seitenelemente weglassen:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Text
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+1 Bit\-pro\-Bildpunkt\-Rasterbilder
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Vektorelemente (au\(sser F\(:ullungen gro\(sser Bereiche)
+.RE
+.sp
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  3." 4.2
+.\}
+beide Rastergrafiken Bildpunkt f\(:ur Bildpunkt vergleichen:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Falls ihre Farben passen, werden die Bildpunkte als Teil der Hintergrundebene eingestuft\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Andernfalls werden die Bildpunkte als Teil der Vordergrundebene eingestuft\&.
+.RE
+.sp
+.RE
+.sp
+.RE
+.sp
+.SH "FEHLERBERICHTE"
+.PP
+Falls Sie einen Fehler in pdf2djvu finden, berichten Sie ihn bitte auf Englisch an
+\m[blue]\fBdie Problemverfolgung\fR\m[]\&\s-2\u[6]\d\s+2
+oder an
+\m[blue]\fBdie Maillingliste\fR\m[]\&\s-2\u[7]\d\s+2\&.
+.SH "SIEHE AUCH"
+.PP
+\fBdjvu\fR(1),
+\fBdjvudigital\fR(1),
+\fBcsepdjvu\fR(1)
+.SH "FUSSNOTEN"
+.IP " 1." 4
+RFC 3999
+.RS 4
+\%https://www.ietf.org/rfc/rfc3339
+.RE
+.IP " 2." 4
+NFKC
+.RS 4
+\%https://unicode.org/reports/tr15/
+.RE
+.IP " 3." 4
+Unicodeblock Alphabetische Pr\(:asentationsformen
+.RS 4
+\%https://unicode.org/charts/PDF/UFB00.pdf
+.RE
+.IP " 4." 4
+OpenMP-API-Spezifikation
+.RS 4
+\%https://www.openmp.org/specifications/
+.RE
+.IP " 5." 4
+Phyton-Zeichenkettenformatierungssyntax
+.RS 4
+\%https://docs.python.org/2/library/string.html#format-string-syntax
+.RE
+.IP " 6." 4
+die Problemverfolgung
+.RS 4
+\%https://github.com/jwilk/pdf2djvu/issues
+.RE
+.IP " 7." 4
+die Maillingliste
+.RS 4
+\%https://groups.io/g/pdf2djvu
+.RE

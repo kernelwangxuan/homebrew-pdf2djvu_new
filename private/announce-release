@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+# Copyright © 2016-2018 Jakub Wilk <jwilk@jwilk.net>
+#
+# This file is part of pdf2djvu.
+#
+# pdf2djvu is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# pdf2djvu is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+set -e -u
+
+export LC_ALL=C
+
+usage()
+{
+    printf '%s [--no-changes]\n' "$0"
+}
+
+args=$(getopt -n "$0" -o 'h' --long 'help,no-changes' -- "$@") || {
+    usage >&2
+    exit 1
+}
+opt_changes=y
+eval set -- "$args"
+while true
+do
+    case "$1" in
+        -h|--help) usage; exit 0;;
+        --no-changes) opt_changes=; shift;;
+        --) shift; break;;
+        *) printf '%s: internal error (%s)\n' "$0" "$1" >&2; exit 1;;
+    esac
+done
+
+version=$(grep -m1 '^[^ ].*) [a-z]' doc/changelog | cut -d' ' -f2 | tr -d '()')
+
+if [ -n "$opt_changes" ]
+then
+    changes=$'The most important end-user visible changes are:\n\n...'
+else
+    changes='There are no end-user visible changes at this time.'
+fi
+
+base_url=https://github.com/jwilk/pdf2djvu
+
+cat <<EOF
+Subject: ANN: pdf2djvu $version
+To: pdf2djvu@groups.io
+
+I am pleased to announce that pdf2djvu $version has been just released.
+
+$changes
+
+Downloads:
+
+  * source:
+    $base_url/releases/download/$version/pdf2djvu-$version.tar.xz
+
+  * Windows distribution:
+    $base_url/releases/download/$version/pdf2djvu-win32-$version.zip
+
+  * source for the Windows distribution:
+    $base_url/releases/download/$version/pdf2djvu-win32-source-$version.tar.xz
+
+All files are cryptographically signed with OpenPGP key
+CDB5A1243ACDB63009AD07212D4EB3A6015475F5.
+Append ".asc" to the URL to get the OpenPGP signature.
+
+Complete changelog:
+EOF
+
+sed -n -e '/^[^ ].*) [a-z]/,$p' doc/changelog \
+| sed -n -e '1d; /^ --/q; p'
+
+# vim:ts=4 sts=4 sw=4 et

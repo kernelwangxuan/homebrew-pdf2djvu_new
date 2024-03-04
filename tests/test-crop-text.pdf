@@ -1,0 +1,57 @@
+%PDF-1.5
+%Ã’¡‘≈ÿ–ƒ∆
+3 0 obj
+<< /Length 65 >>         
+stream
+BT
+/F51 11.95517 Tf
+1 0 0 1 0 2.989 Tm [(Lorem)-250(ipsum)]TJ
+ET
+
+endstream
+endobj
+2 0 obj
+<< /Type /Page /Contents 3 0 R /Resources 1 0 R /MediaBox [ 0 0 32.877 12.951 ] /Parent 5 0 R >>
+endobj
+1 0 obj
+<< /Font << /F51 4 0 R >> /ProcSet [ /PDF /Text ] >>
+endobj
+7 0 obj
+[611 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 444 0 0 0 278 0 0 0 778 0 500 500 0 333 389 0 500 ]
+endobj
+8 0 obj
+<< /Type /FontDescriptor /FontName /Times-Roman /Flags 34 /FontBBox [ 0 -216 1000 678 ] /Ascent 678 /CapHeight 651 /Descent -216 /ItalicAngle 0 /StemV 83 /XHeight 450 >>
+endobj
+6 0 obj
+<< /Type /Encoding /Differences [ 76 /L 101 /e 105 /i 109 /m 111 /o /p 114 /r /s 117 /u ] >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman /FontDescriptor 8 0 R /FirstChar 76 /LastChar 117 /Widths 7 0 R /Encoding 6 0 R >>
+endobj
+5 0 obj
+<< /Type /Pages  /Count 1 /Kids [ 2 0 R ] >>
+endobj
+9 0 obj
+<< /Type /Catalog /Pages 5 0 R >>
+endobj
+10 0 obj
+<< /Producer (LuaTeX-1.15.0) /Creator (TeX) /CreationDate (D:20220809223201+02'00') /ModDate (D:20220809223201+02'00') /Trapped /False >>
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000256 00000 n 
+0000000144 00000 n 
+0000000020 00000 n 
+0000000737 00000 n 
+0000000889 00000 n 
+0000000629 00000 n 
+0000000324 00000 n 
+0000000444 00000 n 
+0000000949 00000 n 
+0000000998 00000 n 
+trailer
+<< /Size 11 /Root 9 0 R /Info 10 0 R >>
+startxref
+1152
+%%EOF

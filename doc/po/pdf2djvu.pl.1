@@ -1,0 +1,631 @@
+'\" t
+.\"     Title: pdf2djvu
+.\"    Author: Jakub Wilk <jwilk@jwilk.net>
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 09.08.2022
+.\"    Manual: podręcznik pdf2djvu
+.\"    Source: pdf2djvu 0.9.19
+.\"  Language: Polish
+.\"
+.TH "PDF2DJVU" "1" "09.08.2022" "pdf2djvu 0\&.9\&.19" "podręcznik pdf2djvu"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAZWA"
+pdf2djvu \- tworzy pliki DjVu z plik\('ow PDF
+.SH "STRESZCZENIE"
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR [{\fB\-o\fR\ |\ \fB\-\-output\fR}\ \fIplik\-wyjściowy\-djvu\fR] [\fIopcja\fR...] \fIplik\-pdf\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-i\fR\ |\ \fB\-\-indirect\fR}\ \fIplik\-indeksowy\-djvu\fR  [\fIopcja\fR...] \fIplik\-pdf\fR...
+.HP \w'\fBpdf2djvu\fR\ 'u
+\fBpdf2djvu\fR {\fB\-\-version\fR | \fB\-\-help\fR | \fB\-h\fR}
+.SH "OPIS"
+.PP
+Program ten tworzy plik DjVu na podstawie jednego lub więcej plik\('ow w formacie Portable Document Format\&.
+.SH "OPCJE"
+.PP
+\fBpdf2djvu\fR
+przyjmuje następujące opcje:
+.SS "Typ dokumentu, nazwy plik\('ow"
+.PP
+\fB\-o\fR, \fB\-\-output=\fR\fB\fIplik\-wyjściowy\-djvu\fR\fR
+.RS 4
+Utw\('orz spakowany dokument wielostronicowy\&. Zapisz wynik do
+\fIwyjściowego\-pliku\-djvu\fR
+zamiast na standardowe wyjście\&.
+.RE
+.PP
+\fB\-i\fR, \fB\-\-indirect=\fR\fB\fIindeksowy\-plik\-djvu\fR\fR
+.RS 4
+Utw\('orz rozdzielony dokument wielostronicowy\&. Jako nazwy pliku indeksowego użyj
+\fIpliku\-indeksowego\-djvu\fR; pliki sk\(/ladowe umieść w tym samym katalogu\&. Katalog musi istnieć z prawami do zapisu\&.
+.RE
+.PP
+\fB\-\-page\-id\-template=\fR\fB\fIszablon\fR\fR
+.RS 4
+Określa schemat nazewnictwa identyfikator\('ow stron\&. Opis języka szablon\('ow znajduje się w rozdziale
+\(BqJĘZYK SZABLON\('OW\(rq\&.
+.sp
+Domyślny szablon to
+\(Bqp{page:04*}\&.djvu\(rq\&.
+.sp
+Aby umożliwić przenośność, identyfikatory stron:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+muszą sk\(/ladać się tylko z ma\(/lych liter ASCII, cyfr, znak\('ow
+_,
++,
+\-
+i kropki,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+nie mogą zaczynać się od znaku
++,
+\-
+ani kropki,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+nie mogą zawierać dw\('och kropek z rzędu,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+muszą kończyć się rozszerzeniem
+\&.djvu
+lub
+\&.djv\&.
+.RE
+.sp
+.RE
+.PP
+\fB\-\-page\-id\-prefix=\fR\fB\fIprefiks\fR\fR
+.RS 4
+R\('ownoważność
+\(Bq\-\-page\-id\-template=\fIprefiks\fR{page:04*}\&.djvu\(rq\&.
+.RE
+.PP
+\fB\-\-page\-title\-template=\fR\fB\fIszablon\fR\fR
+.RS 4
+Określa schemat tytu\(/l\('ow stron\&. Opis języka szablon\('ow znajduje się w rozdziale
+\(BqJĘZYK SZABLON\('OW\(rq\&.
+.sp
+Domyślny szablon to
+\(Bq{label}\(rq\&.
+.RE
+.PP
+\fB\-\-no\-page\-titles\fR
+.RS 4
+Nie ustawiaj tytu\(/l\('ow stron\&.
+.RE
+.SS "Rozdzielczość, wielkość strony"
+.PP
+\fB\-d\fR, \fB\-\-dpi=\fR\fB\fIrozdzielczość\fR\fR
+.RS 4
+Określa, że pożądaną rozdzielczością jest
+\fIrozdzielczość\fR
+punkt\('ow na cal\&. Domyślną wartością jest 300 dpi\&. Dopuszczalny zakres to: 72 \(<=
+\fIrozdzielczość\fR
+\(<= 6000\&.
+.RE
+.PP
+\fB\-\-media\-box\fR
+.RS 4
+Do określenia rozmiaru strony użyj
+MediaBox\&. Domyślnie używane jest
+CropBox\&.
+.RE
+.PP
+\fB\-\-page\-size=\fR\fB\fIszerokość\fR\fR\fBx\fR\fB\fIwysokość\fR\fR
+.RS 4
+Określa, że preferowanym rozmiarem strony jest
+\fIszerokość\fR
+pikseli \(mu
+\fIwysokość\fR
+pikseli\&. Faktyczny rozmiar strony może zostać zmieniony, by zachować proporcje obrazu i wymogi DjVu dot\&. rozdzielczości\&. (Ta opcja ma pierwszeństwo nad
+\fB\-d\fR/\fB\-\-dpi\fR\&.)
+.RE
+.PP
+\fB\-\-guess\-dpi\fR
+.RS 4
+Spr\('obuj odgadnąć pierwotną rozdzielczość poprzez ogląd osadzonych obraz\('ow\&. Używać ostrożnie\&.
+.RE
+.SS "Jakość obrazu"
+.PP
+\fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB+\fR\fB\fI\&...\fR\fR\fB+\fR\fB\fIn\fR\fR, \fB\-\-bg\-slices=\fR\fB\fIn\fR\fR\fB,\fR\fB\fI\&...\fR\fR\fB,\fR\fB\fIn\fR\fR
+.RS 4
+Określa jakość kompresji warstwy t\(/la IW44\&. Opcja ta jest podobna do opcji
+\fB\-slice\fR
+programu
+\fBc44\fR\&. Szczeg\('o\(/ly znajdują się w podręczniku
+\fBc44\fR(1)\&. Domyślną wartością jest
+72+11+10+10\&.
+.RE
+.PP
+\fB\-\-bg\-subsample=\fR\fB\fIn\fR\fR
+.RS 4
+Określa wsp\('o\(/lczynnik podpr\('obkowania t\(/la\&. Domyślną wartością jest 3\&. Dopuszczalne wartości to liczby ca\(/lkowite od 1 do 12 w\(/lącznie\&.
+.RE
+.PP
+\fB\-\-fg\-colors=default\fR
+.RS 4
+Staraj zachować się wszystkie kolory pierwszego planu\&. Tak jest domyślnie\&.
+.RE
+.PP
+\fB\-\-fg\-colors=web\fR
+.RS 4
+Zredukuj kolory pierwszego planu do palety WWW (216 kolor\('ow)\&. Ta opcja nie jest zalecana\&.
+.RE
+.PP
+\fB\-\-fg\-colors=\fR\fB\fIn\fR\fR
+.RS 4
+Użyj GraphicsMagicka do zredukowania do
+\fIn\fR
+liczby r\('ożnych kolor\('ow na pierwszym planie\&. Dopuszczalne wartości to liczby ca\(/lkowite od 1 do 4080\&. Ta opcja nie jest zalecana\&.
+.RE
+.PP
+\fB\-\-fg\-colors=black\fR
+.RS 4
+Odrzuć informacje o kolorach pierwszego planu\&.
+.RE
+.PP
+\fB\-\-monochrome\fR
+.RS 4
+Rastruj strony jako dwukolorowe bitmapy\&. W takim wypadku opcje
+\fB\-\-bg\-\fR\fB\fI\&...\fR\fR
+i
+\fB\-\-fg\-\fR\fB\fI\&...\fR\fR
+nie są respektowane\&.
+.RE
+.PP
+\fB\-\-loss\-level=\fR\fB\fIn\fR\fR
+.RS 4
+Określa agresywność kompresji stratnej\&. Domyślną wartością jest 0 (kompresja bezstratna)\&. Dopuszczalne wartości to liczby ca\(/lkowite od 0 do 200 w\(/lącznie\&. Opcja ta jest podobna do opcji
+\fB\-losslevel\fR
+programu
+\fBcjb2\fR; szczeg\('o\(/ly znajdują się w podręczniku
+\fBcjb2\fR(1)
+\&. Opcja ta może być używana tylko razem z opcją
+\fB\-\-monochrome\fR\&.
+.RE
+.PP
+\fB\-\-lossy\fR
+.RS 4
+Synonim
+\fB\-\-loss\-level=100\fR\&.
+.RE
+.PP
+\fB\-\-anti\-alias\fR
+.RS 4
+W\(/lącz antyaliasing font\('ow i grafiki wektorowej\&. Ta opcja nie jest zalecana\&.
+.RE
+.SS "Wyodrębnianie"
+.PP
+\fB\-\-no\-metadata\fR
+.RS 4
+Nie wyodrębniaj metadanych\&.
+.sp
+Domyślnie:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Wyodrębniane są następujące has\(/la s\(/lownika informacji o dokumencie:
+Title,
+Author,
+Subject,
+Creator,
+Producer,
+CreationDate,
+ModDate\&. Zapisy daty i czasu są formatowane wg
+\m[blue]\fBRFC 3999\fR\m[]\&\s-2\u[1]\d\s+2, z datą i czasem oddzielonymi pojedynczą spacją\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Metadane XMP są wyodrębniane (lub tworzone) i odpowiednio aktualizowane\&.
+.RE
+.sp
+.if n \{\
+.sp
+.\}
+.RS 4
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBUwaga\fR
+.ps -1
+.br
+W przypadku wielu dokument\('ow wejściowych, tylko metadane pierwszego z nich są brane pod uwagę\&.
+.sp .5v
+.RE
+.RE
+.PP
+\fB\-\-verbatim\-metadata\fR
+.RS 4
+Zachowaj oryginalne metadane bez zmian\&.
+.RE
+.PP
+\fB\-\-no\-outline\fR
+.RS 4
+Nie wyodrębniaj konspektu dokumentu\&.
+.RE
+.PP
+\fB\-\-hyperlinks=border\-avis\fR
+.RS 4
+Spraw, by ramki hiper\(/lączy by\(/ly zawsze widoczne\&.
+.sp
+Domyślnie ramka hiper\(/lącza jest widoczna tylko gdy nad nim znajduje się kursor myszki\&.
+.RE
+.PP
+\fB\-\-hyperlinks=#\fR\fB\fIRRGGBB\fR\fR
+.RS 4
+Wymuś określony kolor ramki hiper\(/lączy\&.
+.RE
+.PP
+\fB\-\-no\-hyperlinks\fR, \fB\-\-hyperlinks=none\fR
+.RS 4
+Nie wyodrębniaj hiper\(/lączy\&.
+.RE
+.PP
+\fB\-\-no\-text\fR
+.RS 4
+Nie wyodrębniaj tekstu\&.
+.RE
+.PP
+\fB\-\-words\fR
+.RS 4
+Wyodrębniaj tekst\&. Zapisz po\(/lożenia każdego s\(/lowa\&. Tak jest domyślnie\&.
+.RE
+.PP
+\fB\-\-lines\fR
+.RS 4
+Wyodrębniaj tekst\&. Zapisz po\(/lożenia każdej linii, a nie każdego s\(/lowa\&.
+.RE
+.PP
+\fB\-\-crop\-text\fR
+.RS 4
+Nie wyodrębniaj tekstu, kt\('ory znajduje się poza granicami strony\&.
+.RE
+.PP
+\fB\-\-no\-nfkc\fR
+.RS 4
+Nie stosuj normalizacji
+\m[blue]\fBNFKC\fR\m[]\&\s-2\u[2]\d\s+2, z wyjątkiem znak\('ow z
+\m[blue]\fBbloku Alfabetycznych Form Prezentacyjnych\fR\m[]\&\s-2\u[3]\d\s+2
+(U+FB00\(enU+FB4F), kt\('ore są normalizowane bezwarunkowo\&.
+.sp
+Domyślnie normalizacja NFKC stosowana jest do wszystkich znak\('ow\&.
+.RE
+.PP
+\fB\-\-filter\-text=\fR\fB\fIlinia\-poleceń\fR\fR
+.RS 4
+Przefiltruj tekst przez
+\fIlinię\-poleceń\fR\&. Dany filtr musi zachowywać bia\(/le znaki, znaki kontrole i cyfry dziesiętne\&.
+.sp
+Opcja ta implikuje
+\fB\-\-no\-nfkc\fR\&.
+.RE
+.PP
+\fB\-p\fR, \fB\-\-pages=\fR\fB\fIzakres stron\fR\fR
+.RS 4
+Określa strony przeznaczone do konwersji\&.
+\fIzakres\-stron\fR
+jest oddzielaną przecinkami listą podzakres\('ow\&. Każdy podzakres to albo pojedyncza strona (np\&.
+17), albo ciąg\(/ly zakres stron (np\&.
+37\-42)\&. Numery stron nie mogą się powtarzać\&. Strony numerowane są od 1\&.
+.sp
+Domyślnie konwertowane są wszystkie strony\&.
+.RE
+.SS "Wydajność"
+.PP
+\fB\-j\fR, \fB\-\-jobs=\fR\fB\fIn\fR\fR
+.RS 4
+Użyj
+\fIn\fR
+wątk\('ow do przeprowadzenia konwersji\&. Domyślnie używany jest jeden wątek\&.
+.RE
+.PP
+\fB\-j0\fR, \fB\-\-jobs=0\fR
+.RS 4
+Określ liczbę wątk\('ow używanych do przeprowadzenia konwersji automatycznie\&.
+.RE
+.SS "Gadatliwość, pomoc"
+.PP
+\fB\-v\fR, \fB\-\-verbose\fR
+.RS 4
+Wyświetlaj więcej komunikat\('ow informacyjnych podczas konwersji pliku\&.
+.RE
+.PP
+\fB\-q\fR, \fB\-\-quiet\fR
+.RS 4
+Nie wyświetlaj komunikat\('ow informacyjnych podczas konwersji pliku\&.
+.RE
+.PP
+\fB\-\-version\fR
+.RS 4
+Wyświetl informację o wersji i wyjdź\&.
+.RE
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Wyświetl pomoc i wyjdź\&.
+.RE
+.SH "ŚRODOWISKO"
+.PP
+Następujące zmienne środowiskowe mają wp\(/lyw na dzia\(/lanie
+\fBpdf2djvu\fR
+w systemach uniksowych:
+.PP
+\fIOMP_\fR\fI\fI*\fR\fR
+.RS 4
+Zachowanie programu pod względem wsp\('o\(/lbieżności można kontrolować za pomocą kilku zmiennych środowiskowych\&. Szczeg\('o\(/ly opisane są w
+\m[blue]\fBspecyfikacji API OpenMP\fR\m[]\&\s-2\u[4]\d\s+2\&.
+.RE
+.PP
+\fITMPDIR\fR
+.RS 4
+\fBpdf2djvu\fR
+intensywnie używa plik\('ow tymczasowych\&. Są one sk\(/ladowane w katalogu określonym przez tę zmienną\&. Domyślną wartością jest/tmp\&.
+.RE
+.SH "JĘZYK SZABLON\('OW"
+.SS "Sk\(/ladnia szablon\('ow"
+.PP
+Język szablon\('ow jest z grubsza wzorowany na
+\m[blue]\fBsk\(/ladni formatowania napis\('ow w języku Python\fR\m[]\&\s-2\u[5]\d\s+2\&.
+.PP
+Szablon to kawa\(/lek tekstu zawierający
+pola, otoczone klamrami
+{}\&. Kiedy szablon jest wyliczany, pola zastępowane są odpowiednio sformatowanymi wartościami\&. Ponadto ciąg
+{{
+jest zastępowany pojedynczym
+{
+a ciąg
+}}
+\(em pojedynczym
+}\&.
+.SS "Sk\(/ladnia p\('ol"
+.PP
+Każde pole sk\(/lada się z nazwy zmiennej, po kt\('orej opcjonalnie następuje przesunięcie, po kt\('orym opcjonalnie następuje specyfikacja formatu\&.
+.PP
+Przesunięcie jest liczbą ca\(/lkowitą ze znakiem (tj\&. zaczynającą się znakiem
++
+lub
+\-)\&.
+.PP
+Specyfikacja formatu sk\(/lada się z dwukropka, po kt\('orym następuje specyfikacja szerokości\&.
+.PP
+Specyfikacja szerokości jest liczbą ca\(/lkowitą definiującą minimalną szerokość pola\&. W przypadku braku definicji, szerokość zostanie określona na podstawie treści\&. Poprzedzenie specyfikacji szerokości zerem (0) powoduje dope\(/lnianie zerami\&.
+.PP
+Po specyfikacji szerokości może opcjonalne nastąpić znak gwiazdki (*), kt\('ory zwiększa minimalną szerokość pola do największej możliwej d\(/lugości zawartości zmiennej\&.
+.SS "Dostępne zmienne"
+.PP
+\fIdpage\fR
+.RS 4
+Numer strony w dokumencie DjVu\&.
+.RE
+.PP
+\fIpage\fR, \fIspage\fR
+.RS 4
+Numer strony w dokumencie PDF\&.
+.RE
+.PP
+\fIlabel\fR
+.RS 4
+Etykieta strony (logiczny numer strony) w dokumencie PDF\&.
+.sp
+Ta zmienna jest dostępna tylko w tytu\(/lach stron\&.
+.RE
+.SH "SZCZEG\('O\(/LY IMPLEMENTACJI"
+.SS "Algorytm separacji warstw"
+.PP
+Jeżeli nie użyto opcji
+\fB\-\-monochrome\fR, pdf2djvu używa następującego naiwnego algorytmu separacji warstw:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Dla każdej strony wykonaj co następuje:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Zrastruj stronę do mapy pikseli w zwyk\(/ly spos\('ob\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Zrastruj stronę do innej mapy pikseli, z pominięciem następujących element\('ow strony:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+tekst,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+obrazy rastrowe o g\(/lębokości 1 bit na piksel,
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+elementy wektorowe (opr\('ocz wype\(/lnień o dużej powierzchni)\&.
+.RE
+.sp
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  3." 4.2
+.\}
+Por\('ownaj obie mapy pikseli, piksel po pikselu:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Jeżeli kolory się zgadzają, zaklasyfikuj piksel jako część warstwy t\(/la\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+W przeciwnym wypadku, zaklasyfikuj piksel jako część pierwszego planu\&.
+.RE
+.sp
+.RE
+.sp
+.RE
+.sp
+.SH "RAPORTY O B\(/LĘDACH"
+.PP
+B\(/lędy znalezione w pdf2djvu proszę zg\(/laszać w
+\m[blue]\fBsystemie śledzenia problem\('ow\fR\m[]\&\s-2\u[6]\d\s+2
+lub na
+\m[blue]\fBliście dyskusyjnej\fR\m[]\&\s-2\u[7]\d\s+2\&.
+.SH "ZOBACZ TEŻ"
+.PP
+\fBdjvu\fR(1),
+\fBdjvudigital\fR(1),
+\fBcsepdjvu\fR(1)
+.SH "PRZYPISY"
+.IP " 1." 4
+RFC 3999
+.RS 4
+\%https://www.ietf.org/rfc/rfc3339
+.RE
+.IP " 2." 4
+NFKC
+.RS 4
+\%https://unicode.org/reports/tr15/
+.RE
+.IP " 3." 4
+bloku Alfabetycznych Form Prezentacyjnych
+.RS 4
+\%https://unicode.org/charts/PDF/UFB00.pdf
+.RE
+.IP " 4." 4
+specyfikacji API OpenMP
+.RS 4
+\%https://www.openmp.org/specifications/
+.RE
+.IP " 5." 4
+sk\(/ladni formatowania napis\('ow w języku Python
+.RS 4
+\%https://docs.python.org/2/library/string.html#format-string-syntax
+.RE
+.IP " 6." 4
+systemie śledzenia problem\('ow
+.RS 4
+\%https://github.com/jwilk/pdf2djvu/issues
+.RE
+.IP " 7." 4
+liście dyskusyjnej
+.RS 4
+\%https://groups.io/g/pdf2djvu
+.RE
